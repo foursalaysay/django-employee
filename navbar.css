@@ -4,7 +4,7 @@ aside{
     background-color: antiquewhite;
 }
 
-.aside-nav{
+aside .aside-nav{
     display: flex;
     flex-direction: column;
     gap: 0;
