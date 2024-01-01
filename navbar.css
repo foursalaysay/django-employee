@@ -1,0 +1,24 @@
+aside{
+    height: 100vh;
+    width: 150px;
+    background-color: antiquewhite;
+}
+
+.aside-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+}
+
+.aside-nav li{
+    margin-top: 80px;
+    background-color: slategrey;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
