@@ -27,12 +27,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .aside-nav-items:hover{
-    transform: scale(1.2);
+    transform-origin: top left;
+    transform: scaleX(1.2);
     transition: all 0.3s ease-in-out;
-
 }
 
 
