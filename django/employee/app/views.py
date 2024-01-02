@@ -28,4 +28,4 @@ def signup_view(request):
     else:
         form = UserForm()
 
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'frontpage.html', {'form': form})
