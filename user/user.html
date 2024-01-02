@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+
+    <link rel="stylesheet" href="/css/Emp.css">
 </head>
 <body>
     <nav>
@@ -50,20 +52,61 @@
                     Salary Information
                 </a>
 
-                <a  class="aside-nav-items"  href="dashboard/user-stub.html">
+                <a  class="aside-nav-items"  href="user-stub.html">
                     <img class="sidenav-logo" src="../../images/bank-check.png" alt="logo">
                     Pay Stubs
                 </a>
 
-                <a  class="aside-nav-items" href="dashboard/doc-repo.html">
+                <a  class="aside-nav-items" href="doc-repo.html">
                     <img class="sidenav-logo" src="../../images/documentation.png" alt="logo">
                     Document Repository
                 </a>
             </ul>
         </aside>
-        <section class="dashboard-content">
+        <div class="dashboard-content">
+            <main>
+                <div id="profile-calendar-container">
+                  <div id="profile">
+                    <h2>Employee Profile</h2>
+                    <div id="profile-form" class="form-container">
+                      <!-- Profile content -->
+                      <div class="Profile-container">
+                        <div class="profile-photo-container">
+                          <label for="photo-upload" id="photo-label">
+                            <img src="profile-photo.jpg" alt="To Upload a photo Click the EditProfile" id="profile-photo">
+                          </label>
+                          <input type="file" id="photo-upload" accept="image/*" onchange="previewPhoto(event)" disabled>
+                        </div>
+                        <div class="profile-info-container">
+                          <label for="id">ID Number:</label>
+                          <input type="text" id="id" value="12345" disabled>
+                          <label for="name">Name:</label>
+                          <input type="text" id="name" value="John Doe" disabled>
+                          <label for="position">Position:</label>
+                          <select id="position" disabled>
+                            <option value="Regular">Regular</option>
+                            <option value="Irregular">Irregular</option>
+                            <option value="Part-Time">Part-Time</option>
+                          </select>
+                          <label for="email">Email:</label>
+                          <input type="email" id="email" value="john.doe@example.com" disabled>
+                          <label for="contact">Contact Number:</label>
+                          <input type="tel" id="contact" value="123-456-7890" disabled>
+                          <label for="address">Address:</label>
+                          <textarea id="address" disabled>123 Main St, City, Country</textarea>
+                          <button id="edit-btn" onclick="enableEdit()">Edit Profile</button>
+                          <button id="save-btn" onclick="saveChanges()" style="display: none;">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             
-        </section>
+                  <div id="calendar">
+                    <div id="real-calendar"></div>
+                  </div>
+                </div>
+              </main>
+        </div>
     </div>
 </body>
 </html>
