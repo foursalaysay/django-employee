@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendar</title>
+  <link rel="stylesheet" href="ECalendar.css">
+  <script src="ECalendar.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="navbar">
+      <div class="nav-items">
+        <div class="nav-item"><a href="Employee.html">Home</a></div>
+        <div class="nav-item"><a href="EventCalendar.html">Event Calendar</a></div>
+        <div class="nav-item"><a href="Salary.html">Salary</a></div>
+      </div>
+      <div class="logout-button">
+        <a href="#" class="button">Logout</a>
+      </div>
+    </div>
+    <div class="calendar">
+      <div class="calendar-header">
+        <span class="month-picker" id="month-picker"> May </span>
+        <div class="year-picker" id="year-picker">
+          <span class="year-change" id="pre-year">
+            <pre><</pre>
+          </span>
+          <span id="year">2020 </span>
+          <span class="year-change" id="next-year">
+            <pre>></pre>
+          </span>
+        </div>
+      </div>
+
+      <div class="calendar-body">
+        <div class="calendar-week-days">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="calendar-days">
+        </div>
+      </div>
+      <div class="calendar-footer">
+        <input type="text" id="event-input" placeholder="Add an event">
+        <input type="date" id="event-date" required>
+        <button id="add-event-button">Add Event</button>
+      </div>
+      <div class="event-box">
+        <div class="event-container">
+          <!-- Event list will be displayed here -->
+        </div>
+      </div>
+      <div class="date-time-formate">
+        <div class="day-text-formate">TODAY</div>
+        <div class="date-time-value">
+          <div class="time-formate">01:41:20</div>
+          <div class="date-formate">03 - march - 2022</div>
+        </div>
+      </div>
+      <div class="month-list"></div>
+    </div>
+  </div>
+</body>
+
+</html>
