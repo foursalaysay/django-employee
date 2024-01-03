@@ -7,7 +7,7 @@
 
 .salary-config{
     padding: 20px;
-    width: fit-content;
+    overflow-y: auto;
 }
 
 h1{
@@ -22,7 +22,7 @@ h1{
     margin-top: 50px;
 }
 hr{
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .computation{
@@ -31,6 +31,20 @@ hr{
 }
 
 input{
-    height: 30px;
+    height: 35px;
     width: 200px;
+    border-radius: 5px;
+    padding: 2px;
+    margin-left: 10px;
+}
+
+button{
+    height: 35px;
+    width: 120px;
+    background-color: #4CAF50; 
+    cursor: pointer;
+}
+
+.fetch-info{
+    margin: 10px 0 20px 0;
 }
