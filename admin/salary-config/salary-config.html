@@ -40,16 +40,15 @@
                 
             </ul>
         </aside>
-        <section class="dashboard-content">
-            <div class="section-header">
-                <a  class="aside-nav-items" id="section-header-nav" href="/admin/salary-config//salary-config.html">
-                    <img class="sidenav-logo" src="./images/documentation.png" alt="logo">
-                    Define Salary Components
-                </a>
-                <a  class="aside-nav-items" id="section-header-nav" href="/admin/salary-config/set-payroll.html">
-                    <img class="sidenav-logo" src="./images/documentation.png" alt="logo">
-                    Set Payroll Rules
-                </a>
+        <section class="admin-content">
+            <div class="salary-config">
+                <h1>Define Salary Components</h1>
+                <label for="id-search">Search Employee Id:</label>
+                <input type="text" name="id-search">
+                <button onclick="getEmployee()">Submit</button><br/><br/>
+                <table id="employeeTable">
+                    
+                </table>
             </div>
         </section>
     </div>

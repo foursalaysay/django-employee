@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+.card-content{
+    height: 250px;
+    width: 249px;
+    border: solid black 1px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 10px;
+}
+
+.card-content button{
+    height: 40px;
+    width: 200px;
+    background-color: rgb(29, 207, 29);
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Styling the scrollbar */
+.admin-content::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+.admin-content::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Styling the scrollbar thumb */
+.admin-content::-webkit-scrollbar-thumb {
+    background: #b8b8b8; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners of the thumb */
+}
+
+/* Styling the scrollbar thumb on hover */
+.admin-content::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the thumb on hover */
+}

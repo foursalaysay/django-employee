@@ -18,10 +18,11 @@
 }
 
 
-.admin-content{
+.admin-content {
     height: calc(100vh - 80px);
     border-left: solid 1px;
     border-color: slategray;
+    overflow-y: auto; /* Adding this line to enable vertical scrolling */
 }
 
 .section-header{
