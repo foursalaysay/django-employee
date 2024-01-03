@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.salary-config{
+    padding: 20px;
+    width: fit-content;
+}
+
+h1{
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.computation-value{
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    margin-top: 50px;
+}
+hr{
+    margin-top: 50px;
+}
+
+.computation{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    height: 30px;
+    width: 200px;
+}

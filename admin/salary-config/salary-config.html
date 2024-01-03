@@ -6,8 +6,10 @@
     <title>Admin</title>
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/salary-config.css">
 </head>
 <body>
+    <script src="/js/calculation.js"></script>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
         <a href="/auth/login.html">Logout</a>
@@ -44,11 +46,48 @@
             <div class="salary-config">
                 <h1>Define Salary Components</h1>
                 <label for="id-search">Search Employee Id:</label>
-                <input type="text" name="id-search">
-                <button onclick="getEmployee()">Submit</button><br/><br/>
-                <table id="employeeTable">
-                    
-                </table>
+                <input type="text" name="id-search" placeholder="Search">
+                <button onclick="getEmployee()">Search</button><br/><br/>
+                <!-- SET THE BASIC SALARY OF EMPLOYEE THROUGH ID -->
+
+                <!-- FETCH FIRST THE EMPLOYEE DATA HERE -->
+
+                <div class="user-info">
+
+                    <h3>Employee Name</h3>
+                    <p>Employee Contact</p>
+                    <p>Employee Address</p>
+                
+                <form action="" method="post" id="basicSalForm">
+                    <label for="basic-salary">Set Employee Basic Salary:</label>
+                    <input type="text" required>
+                </form>
+
+                <!-- DISPLAY THE SALARY INFORMATION WITH DEDUCTIONS -->
+
+                <hr>
+                <div class="computation-value">
+                    <div class="computation">
+                        <label>Basic Salary:</label>
+                        <label id="basic-salary"></label>
+                    </div>
+                    <div class="computation">
+                        <label>Deductions:</label>
+                        <label >SSS:</label>
+                        <label id="sss"></label>
+                        <label >PhilHealth:</label>
+                        <label id="philhealth"></label>
+                        <label >PAGIBIG:</label>
+                        <label id="pagibig"></label>
+                        <label>Total Deductions:</label>
+                        <label id="total-deduction"></label>
+                    </div>
+                </div>
+                
+
+                
+                </div>
+                
             </div>
         </section>
     </div>
