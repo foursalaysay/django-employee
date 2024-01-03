@@ -5,18 +5,6 @@
     margin: 0;
 }
 
-.admin-header{
-    height: 80px;
-    width: 100vw;
-    background-color: #4CAF50; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px 0 40px;
-    font-family: 'Popppins', sans-serif;
-    color: white;
-}
-
 .page-content{
     height: calc(100vh - 160px);
     width: 100vw;
