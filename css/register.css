@@ -37,7 +37,7 @@
 }
 .register-form {
     border: solid slategray .5px;
-    border-radius: 20px;
+    border-radius: 20px 0px 0 20px;
     width: 600px;
     height: 600px; /* Change the height as per your requirement */
     overflow-y: auto; /* Enable vertical scrollbar when content exceeds height */
@@ -46,7 +46,11 @@
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    padding: 20px;
+    padding: 30px;
+  }
+
+  .register-form h1{
+    margin-top: 40px;
   }
   
   .input-container {
