@@ -52,22 +52,16 @@
 
                 <!-- FETCH FIRST THE EMPLOYEE DATA HERE -->
 
+            <form action="" method="post" id="basicSalForm">
                 <div class="user-info">
-                
                     <div class="fetch-info">
                         <h3>Employee Name</h3>
                         <p>Employee Contact</p>
                         <p>Employee Address</p>
                     </div>
-                    
-                
-                <form action="" method="post" id="basicSalForm">
                     <label for="basic-salary">Set Employee Basic Salary:</label>
-                    <input type="text" required>
-                </form>
-
+                    <input type="text" id="salary" required >
                 <!-- DISPLAY THE SALARY INFORMATION WITH DEDUCTIONS -->
-
                 <hr>
                 <div class="computation-value">
                     <div class="computation">
@@ -76,17 +70,33 @@
                     </div>
                     <div class="computation">
                         <label>Deductions:</label>
-                        <label >SSS:</label>
-                        <label id="sss"></label>
-                        <label >PhilHealth:</label>
-                        <label id="philhealth"></label>
-                        <label >PAGIBIG:</label>
-                        <label id="pagibig"></label>
-                        <label>Total Deductions:</label>
-                        <label id="total-deduction"></label>
+                        <div class="deduction-value">
+                            <label >SSS:</label>
+                            <label id="sss"></label>
+                        </div>
+                        <div class="deduction-value">
+                            <label >PhilHealth:</label>
+                            <label id="philhealth"></label>
+                        </div>
+                        <div class="deduction-value">
+                            <label >PAGIBIG:</label>
+                            <label id="pagibig"></label>
+                        </div>
+                        <div class="deduction-value">
+                            <label>Total Deductions:</label>
+                            <label id="total-deduction"></label>
+                        </div>
+                        <div class="deduction-value">
+                            <label>Net Pay:</label>
+                            <label id="net-pay"></label>
+                        </div>
+
+                        <button onclick="deductionValues()">Calculate</button>
                     </div>
                 </div>
-                </div>
+            </div>
+        </form>
+
                 
             </div>
         </section>

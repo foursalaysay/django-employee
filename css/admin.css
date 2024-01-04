@@ -24,6 +24,20 @@
     border-left: solid 1px;
     border-color: slategray;
     overflow-y: auto; /* Adding this line to enable vertical scrolling */
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+    scrollbar-color: #ccc #f0f0f0;
+}
+
+.admin-content::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.admin-content::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Set the color of the scrollbar thumb */
+}
+
+.admin-content::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Set the color of the scrollbar track */
 }
 
 .section-header{
