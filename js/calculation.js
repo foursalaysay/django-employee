@@ -6,6 +6,10 @@
 
 function deductionValues(){
 
+    document.getElementById('calculateBtn').addEventListener('click', function(event) {
+        event.preventDefault()
+    
+    
       // PROVIDE THE ID OF INPUTTED DATA SALARY FROM ADMIN INPUT
       var getBasicValue = document.getElementById('salary');
       var getBasic = getBasicValue.value;
@@ -30,6 +34,7 @@ function deductionValues(){
     pagIbigValue.textContent = pagibig;
     totalDeductionValue.textContent = totalDeduction.toFixed(2);
     netPayValue.textContent= netPay.toFixed(2);
+    });
 }
 
 
