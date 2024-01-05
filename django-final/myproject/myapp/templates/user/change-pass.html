@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/change-pass.css">
+</head>
+<body>
+    <nav>
+        <div class="navbar-image">
+            <img src="" alt="">
+        </div>
+        <ul class="navbar-ul">
+            <li>
+                <a href="user.html">Dashboard</a>
+            </li>
+            <li>
+                <a href="profile-management.html">Profile Management</a>
+            </li>
+            <li>
+                <a href="payroll.html">Payroll</a>
+            </li>
+            <li>
+                <a href="report.html">Report</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- DIMENSION OF NAVBAR ABOVE -->
+
+    <!-- width: 100vw;
+    height: 80px; -->
+
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="page-content">
+        <aside class="aside-content">
+            <ul class="aside-nav">
+                <a  class="aside-nav-items" href="profile-management.html">
+                    <img class="sidenav-logo" src="../images/update-info.png" alt="logo">
+                    Update Information
+                </a>
+                <a  class="aside-nav-items"   href="change-pass.html">
+                    <img class="sidenav-logo" src="../images/password.png" alt="logo">
+                    Change Password
+                </a>
+            </ul>
+        </aside>
+        <section class="dashboard-content">
+                <form action="" method="post">
+                    <div class="change-pass-container">
+                        <h2>Change Employee Password</h2>
+                        <label for="change-pass">Provide the New Password</label>
+                        <input type="text" id="change-pass" name="change_pass">
+                        <button>Change Password</button>
+                    </div>
+                </form>
+        </section>
+    </div>
+</body>
+</html>
