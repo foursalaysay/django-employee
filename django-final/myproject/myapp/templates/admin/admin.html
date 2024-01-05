@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+</head>
+<body>
+    <script src="/js/admin.js"></script>
+    <div class="admin-header">
+        <h2>ADMIN PAGE</h2>
+        <div class="right-side-header">
+            <h1>Current Time:</h1>
+            <p id="currentTime"></p>
+            <a href="/auth/login.html">Logout</a>
+        </div>
+    </div>
+    <div class="page-content">
+        <aside class="aside-content">
+            <ul class="aside-nav">
+                <a  class="aside-nav-items" href="admin.html">
+                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
+                    Dashboard
+                </a>
+                <a  class="aside-nav-items"  href="salary-config/salary-config.html".html">
+                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
+                    Salary Configuration
+                </a>
+
+                <a  class="aside-nav-items" href="payment-proc/payment-proc.html">
+                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
+                    Payment Processing
+                </a>
+                <a  class="aside-nav-items" href="reporting/reporting.html">
+                    <img class="sidenav-logo" src="../images/report.png" alt="logo">
+                    Reporting
+                </a>
+                <a  class="aside-nav-items" href="system-config/tax-rate.html">
+                    <img class="sidenav-logo" src="../images/system.png" alt="logo">
+                    System Configuration
+                </a>
+                
+            </ul>
+        </aside>
+        <section class="admin-content">
+            <div class="card-container">
+                <!-- FETCH ALL EMPLOYEES  -->
+                <div class="card-content">
+                    <h1>Employee Name</h1>
+                    <p>Employee Address</p>
+                    <p>Employee Contact</p>
+                    <button>Delete Empoyee</button>
+                    <button id="openDialogBtn" onclick="openDialog()">View Employee</button>
+                </div>
+                <div class="card-content">
+                    <h1>Employee Name</h1>
+                    <p>Employee Address</p>
+                    <p>Employee Contact</p>
+                    <button>Delete Empoyee</button>
+                    <button>View Employee</button>
+                </div>
+                <div class="card-content">
+                    <h1>Employee Name</h1>
+                    <p>Employee Address</p>
+                    <p>Employee Contact</p>
+                    <button>Delete Empoyee</button>
+                    <button>View Employee</button>
+                </div>
+                <div class="card-content">
+                    <h1>Employee Name</h1>
+                    <p>Employee Address</p>
+                    <p>Employee Contact</p>
+                    <button>Delete Empoyee</button>
+                    <button>View Employee</button>
+                </div>
+                <div class="card-content">
+                    <h1>Employee Name</h1>
+                    <p>Employee Address</p>
+                    <p>Employee Contact</p>
+                    <button>Delete Empoyee</button>
+                    <button>View Employee</button>
+                </div>
+            </div>
+
+            <!-- THIS IS FOR EDITING THE EMPLOYEE INFORMATION -->
+            <div id="dialog" class="dialog">
+                <div class="dialog-content">
+                  <span class="close" onclick="closeDialog()">&times;</span>
+                  <h1>Edit Employee Information</h1>
+                  <div class="update-emp-info">
+                    <label for="name">Name:</label><br>
+                    <input type="text" name="name"><br>
+                    <label for="address">Address:</label><br>
+                    <input name="address"></input><br>
+                    <label for="contact">Contact Number:</label><br>
+                    <input type="tel" name="contact"><br><br>
+                    <input type="submit" value="Update">
+                </div>
+                </div>
+            </div>
+            
+        </section>
+    </div>
+    
+</body>
+</html>
