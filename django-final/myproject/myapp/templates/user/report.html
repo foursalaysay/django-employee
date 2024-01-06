@@ -10,9 +10,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
     <nav>
@@ -21,20 +21,19 @@
         </div>
         <ul class="navbar-ul">
             <li>
-                <a href="user.html">Dashboard</a>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             <li>
-                <a href="profile-management.html">Profile Management</a>
+                <a href="{% url 'profile_management' %}">Profile Management</a>
             </li>
             <li>
-                <a href="payroll.html">Payroll</a>
+                <a href="{% url 'payroll' %}">Payroll</a>
             </li>
             <li>
-                <a href="report.html">Report</a>
+                <a href="{% url 'report' %}">Report</a>
             </li>
         </ul>
     </nav>
-
     <!-- DIMENSION OF NAVBAR ABOVE -->
 
     <!-- width: 100vw;
@@ -45,24 +44,28 @@
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a  class="aside-nav-items"  href="report.html">
-                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
-                    Salary Reports
-                </a>
-
-                <a  class="aside-nav-items"  href="tax-report.html">
-                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
-                    Tax Reports
-                </a>
-
-                <a  class="aside-nav-items"href="financial-sum.html">
-                    <img class="sidenav-logo" src="../images/documentation.png" alt="logo">
-                    Financial Summaries
-                </a>
+                <li>
+                    <a class="aside-nav-items" href="{% url 'report' %}">
+                        <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
+                        Salary Reports
+                    </a>
+                </li>
+                <li>
+                    <a class="aside-nav-items" href="{% url 'tax-report' %}">
+                        <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
+                        Tax Reports
+                    </a>
+                </li>
+                <li>
+                    <a class="aside-nav-items" href="{% url 'financial-sum' %}">
+                        <img class="sidenav-logo" src="{% static 'images/documentation.png' %}" alt="logo">
+                        Financial Summaries
+                    </a>
+                </li>
             </ul>
         </aside>
         <section class="dashboard-content">
-            
+            <!-- Your dashboard content goes here -->
         </section>
     </div>
 </body>
