@@ -10,12 +10,14 @@ urlpatterns = [
     
     
     path("user/profile-management", views.update_info, name="update_info"),
-    path("user/change-pass", views.change_pass, name="change_pass")
+    path("user/change-pass", views.change_pass, name="change_pass"),
     
     
-    path("user/payroll", views.user_payroll, name="payroll"),
+    path("user/payroll", views.view_calculation, name="payroll"),
+    path("user/tax-info", views.tax_info, name="tax_info"),
+    
+    
     path("user/user-report", views.user_report, name="user_report"),
-    
     path("user/tax-report", views.user_tax_report, name="user_tax_report"),
     path("user/financial-sum", views.financial_sum, name="financial_sum"),
     

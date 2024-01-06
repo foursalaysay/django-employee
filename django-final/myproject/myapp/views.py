@@ -70,7 +70,7 @@ def tax_info(request):
         
     })
     
-# -------------------------- PAYROLL VIEWS ------------------------------
+# -------------------------- REPORT VIEWS ------------------------------
 
 def user_report(request):
     return render(request, "report.html", {
