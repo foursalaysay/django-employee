@@ -10,62 +10,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <script src=""></script>
 </head>
 <body>
-    <script src="/css/Emp.js"></script>
+    <script src="{% static '/css/Emp.js' %}"></script>
     <nav>
         <div class="navbar-image">
             <img src="" alt="">
         </div>
             <ul class="navbar-ul">
                 <li>
-                    <a href="user.html">Dashboard</a>
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li>
-                    <a href="profile-management.html">Profile Management</a>
+                    <a href="{% url 'profile_management' %}">Profile Management</a>
                 </li>
                 <li>
-                    <a href="payroll.html">Payroll</a>
+                    <a href="{% url 'payroll' %}">Payroll</a>
                 </li>
                 <li>
-                    <a href="report.html">Report</a>
+                    <a href="{% url 'report' %}">Report</a>
                 </li>
             </ul>
     </nav>
 
-    <!-- DIMENSION OF NAVBAR ABOVE -->
+    {% comment %} DIMENSION OF NAVBAR ABOVE {% endcomment %}
 
     <!-- width: 100vw;
     height: 80px; -->
 
 
-    <!-- DASHBOARD CONTENT -->
-    <div class="page-content">
-        <aside class="aside-content">
-            <ul class="aside-nav">
-                <a  class="aside-nav-items" href="user.html">
-                    <img class="sidenav-logo" src="../../images/salary.png" alt="logo">
-                    Salary Information
-                </a>
+   <!-- DASHBOARD CONTENT -->
+   <div class="page-content">
+    <aside class="aside-content">
+        <ul class="aside-nav">
+            <a  class="aside-nav-items" href="{% url 'dashboard' %}">
+                <img class="sidenav-logo" src="../../images/salary.png" alt="logo">
+                Salary Information
+            </a>
 
-                <a  class="aside-nav-items"  href="user-stub.html">
-                    <img class="sidenav-logo" src="../../images/bank-check.png" alt="logo">
-                    Pay Stubs
-                </a>
+            <a  class="aside-nav-items"  href="{% url 'user_stub' %}">
+                <img class="sidenav-logo" src="../../images/bank-check.png" alt="logo">
+                Pay Stubs
+            </a>
 
-                <a  class="aside-nav-items" href="doc-repo.html">
-                    <img class="sidenav-logo" src="../../images/documentation.png" alt="logo">
-                    Document Repository
-                </a>
-            </ul>
-        </aside>
-        <div class="dashboard-content">
-          
-        </div>
+            <a  class="aside-nav-items" href="{% url 'doc_repo' %}">
+                <img class="sidenav-logo" src="../../images/documentation.png" alt="logo">
+                Document Repository
+            </a>
+        </ul>
+    </aside>
+    <div class="dashboard-content">
+        <!-- ... -->
     </div>
+</div>
 </body>
 </html>
