@@ -27,6 +27,4 @@ urlpatterns = [
     path("admin/payment-proc", views.payment_proc, name="payment_proc"),
     path("admin/reporting", views.reporting, name="reporting"),
     path("admin/system-config", views.system_config, name="system_config")
-    
-    
 ]
