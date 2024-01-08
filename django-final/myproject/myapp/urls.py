@@ -17,7 +17,7 @@ urlpatterns = [
     path("user/tax-info", views.tax_info, name="tax_info"),
     
     path("user/user-report", views.user_report, name="user_report"),
-    path("user/tax-report", views.user_tax_report, name="user_tax_report"),
+    path("user/tax-report", views.tax_report, name="tax_report"),
     path("user/financial-sum", views.financial_sum, name="financial_sum"),
     
     

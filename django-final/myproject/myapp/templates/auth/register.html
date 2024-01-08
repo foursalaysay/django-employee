@@ -4,51 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script src="{% static 'js/register.js' %}"></script>
 </head>
 <body>
-    <script src="/js/register.js"></script>
     <div class="register-page">
         <div class="register-image">
-            <img src="/images/register-django.svg" alt="register-logo">
+            <img src="{% static 'images/register-django.svg' %}" alt="register-logo">
         </div>
         <div class="register-container">
             <div class="register-form" id="register-scroll">
                 <form action="/signup" method="post">
-                <h1>Employee Registration</h1>
-                <div class="input-container">
-                    <label for='name'>Name:</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="input-container">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email">
-                </div>
-                <div class="input-container">
-                    <label for="contact">Contact Number:</label>
-                    <input type="text" name="contact">
-                </div>
-                <div class="input-container">
-                    <label for="address">Address:</label>
-                    <input type="text" name="address">
-                </div>
-                <div class="input-container">
-                    <label for="username">Username:</label>
-                    <input type="text" name="username">
-                </div>
-                <div class="input-container">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password">
-                </div>
-                <div class="input-container">
-                    <button>Register</button>
-                </div>
-                
-                
-            </form>
+                    {% csrf_token %}
+                    <h1>Employee Registration</h1>
+                    <div class="input-container">
+                        <label for='name'>Name:</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="input-container">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="input-container">
+                        <label for="contact">Contact Number:</label>
+                        <input type="text" name="contact">
+                    </div>
+                    <div class="input-container">
+                        <label for="address">Address:</label>
+                        <input type="text" name="address">
+                    </div>
+                    <div class="input-container">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username">
+                    </div>
+                    <div class="input-container">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password">
+                    </div>
+                    <div class="input-container">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
             </div>
         </div>
-        
     </div>
 </body>
 </html>
