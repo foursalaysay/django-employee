@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 
 def admin_view(request):
@@ -31,10 +31,21 @@ def system_config(request):
 # <----------------------- EMPLOYEE VIEWS HERE ------------------------->
 # -------------------------------------------------------------------------
 # -------------------------- DASHBOARD VIEWS ------------------------------
-def emp_view(request):
-    return render(request, "user.html", {
-        # PASS DATA
-    })
+def emp_view(request, employee_id, username, password):
+    employee = Employee.get_employee_by_username_password(username, password)
+    
+    salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
+    
+    if employee:
+        if salary_info:
+            # Do something with the retrieved salary_info
+            return render(request, 'user.html', {'salary_info': salary_info})
+        else:
+            # Handle the case when no salary info is found for the given employee_id
+            return render(request, 'no_salary_info.html', {'employee_id': employee_id})
+    else:
+        # Handle the case when no employee is found for the given credentials
+        return render(request, 'no_employee.html')
     
 def pay_stub(request):
     return render(request, "user-stub.html", {
