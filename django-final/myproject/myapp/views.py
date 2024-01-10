@@ -2,6 +2,12 @@ from django.shortcuts import render
 from .models import *
 # Create your views here.
 
+def login(request):
+    return render(request, 'auth/login.html')
+
+def register(request):
+    return render(request, 'auth/register.html')
+
 def admin_view(request):
     return render(request, 'admin.html', {
         # PASS DATA
@@ -34,9 +40,9 @@ def system_config(request):
 def emp_view(request, employee_id, username, password):
     employee = Employee.get_employee_by_username_password(username, password)
     
-    salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
-    
     if employee:
+        salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
+        
         if salary_info:
             # Do something with the retrieved salary_info
             return render(request, 'user.html', {'salary_info': salary_info})
@@ -46,6 +52,7 @@ def emp_view(request, employee_id, username, password):
     else:
         # Handle the case when no employee is found for the given credentials
         return render(request, 'no_employee.html')
+
     
 def pay_stub(request):
     return render(request, "user-stub.html", {

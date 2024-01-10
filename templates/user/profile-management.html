@@ -1,0 +1,77 @@
+<!-- dashboard_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static '/css/profile-management.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="navbar-image">
+            <img src="" alt="">
+        </div>
+        <ul class="navbar-ul">
+            <li>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li>
+                <a href="{% url 'profile_management' %}">Profile Management</a>
+            </li>
+            <li>
+                <a href="{% url 'payroll' %}">Payroll</a>
+            </li>
+            <li>
+                <a href="{% url 'report' %}">Report</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- DIMENSION OF NAVBAR ABOVE -->
+
+    <!-- width: 100vw;
+    height: 80px; -->
+
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="page-content">
+        <aside class="aside-content">
+            <ul class="aside-nav">
+                <a class="aside-nav-items" href="{% url 'update_information' %}">
+                    <img class="sidenav-logo" src="../images/update-info.png" alt="logo">
+                    Update Information
+                </a>
+                <a class="aside-nav-items" href="{% url 'change_password' %}">
+                    <img class="sidenav-logo" src="../images/password.png" alt="logo">
+                    Change Password
+                </a>
+            </ul>
+        </aside>
+        <section class="dashboard-content">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="update-container">
+                    <h2 class="title">Update Profile Information</h2>
+                    <label for="email">Change Email:</label>
+                    <input type="text" name="email">
+                    <label for="contact">Update Contact Number:</label>
+                    <input type="text" name="contact">
+                    <label for="address">Change Address:</label>
+                    <input type="text" name="address">
+                    <button type="submit">Update Information</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
