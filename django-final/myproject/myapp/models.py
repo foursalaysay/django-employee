@@ -7,24 +7,16 @@ class Employee(AbstractUser):
     email = models.EmailField(unique=True)
     contact_number = models.CharField(max_length=15)
     address = models.TextField()
-    
-    # For simplicity, you should use Django's built-in password hashing
     password = models.CharField(max_length=128)
-    
     groups = models.ManyToManyField('auth.Group', related_name='employee_groups', blank=True)
     user_permissions = models.ManyToManyField('auth.Permission', related_name='employee_permissions', blank=True)
 
-    
     def __str__(self):
         return f"{self.username} - {self.employee_id}"
-    
+
     @classmethod
     def get_employee_by_username_password(cls, username, password):
-        try:
-            employee = cls.objects.get(username=username, password=password)
-            return employee
-        except cls.DoesNotExist:
-            return None
+        return get_object_or_404(cls, username=username, password=password)
 
 class SalaryInfo(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)

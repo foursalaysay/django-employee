@@ -8,6 +8,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+ 
 # Create your views here.
 
 def login(request):
@@ -30,37 +32,22 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        # If the form is submitted
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        contact = request.POST.get('contact')
-        address = request.POST.get('address')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Create a new employee
+            employee = Employee.objects.create_user(**form.cleaned_data)
 
-        # Check if the username is already taken
-        if Employee.objects.filter(username=username).exists():
-            messages.error(request, 'Username is already taken')
-            return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
+            # Log in the user after successful registration
+            user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
 
-        # Create a new employee
-        employee = Employee.objects.create_user(username=username, password=password, email=email, first_name=name)
+            messages.success(request, 'Registration successful. You are now logged in.')
+            return redirect('home')  # Redirect to the home page after successful registration and login
+    else:
+        form = RegistrationForm()
 
-        # Additional fields for the employee model
-        employee.contact_number = contact
-        employee.address = address
-        employee.save()
-
-        # Log in the user after successful registration
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-
-        messages.success(request, 'Registration successful. You are now logged in.')
-        return redirect('login')  # Redirect to the home page after successful registration and login
-
-    # If the request is a GET request or the form submission fails, render the registration form
-    return render(request, 'auth/register.html')
+    return render(request, 'auth/register.html', {'form': form})
 
 def admin_view(request):
     return render(request, 'admin.html', {
