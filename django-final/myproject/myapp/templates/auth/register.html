@@ -14,10 +14,10 @@
     <div class="register-page">
         <div class="register-image">
             <img src="{% static 'images/register-django.svg' %}" alt="register-logo">
-        </div>
+        </div>~
         <div class="register-container">
             <div class="register-form" id="register-scroll">
-                <form action="/signup" method="post">
+                <form action="{% url 'register' %}" method="post">
                     {% csrf_token %}
                     <h1>Employee Registration</h1>
                     <div class="input-container">
@@ -47,6 +47,7 @@
                     <div class="input-container">
                         <button type="submit">Register</button>
                     </div>
+                    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
                 </form>
             </div>
         </div>
