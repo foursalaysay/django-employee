@@ -12,22 +12,19 @@ from django.contrib import messages
 
 def login(request):
     if request.method == 'POST':
-        # If the form is submitted
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        # Authenticate the user
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # If authentication is successful, log the user in
             login(request, user)
-            return redirect('home')  # Replace 'home' with the name of your home URL pattern
+            return redirect('emp_view')  # Change 'home' to the name of your home page URL pattern
         else:
-            # If authentication fails, show an error message
-            messages.error(request, 'Invalid username or password')
+            # Handle invalid login
+            # You can add a message here if you want to display an error message to the user
+            pass
 
-    # If the request is a GET request or authentication fails, render the login form
+    # Render the login page (GET request or unsuccessful login)
     return render(request, 'auth/login.html')
 
 
@@ -42,20 +39,25 @@ def register(request):
         password = request.POST.get('password')
 
         # Check if the username is already taken
-        if User.objects.filter(username=username).exists():
+        if Employee.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
             return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
 
-        # Create a new user
-        user = User.objects.create_user(username=username, password=password, email=email, first_name=name)
+        # Create a new employee
+        employee = Employee.objects.create_user(username=username, password=password, email=email, first_name=name)
 
-        # Additional fields for the employee model (if you have one)
-        user.employee.contact_number = contact
-        user.employee.address = address
-        user.employee.save()
+        # Additional fields for the employee model
+        employee.contact_number = contact
+        employee.address = address
+        employee.save()
 
-        messages.success(request, 'Registration successful. You can now log in.')
-        return redirect('login')  # Redirect to the login page after successful registration
+        # Log in the user after successful registration
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+
+        messages.success(request, 'Registration successful. You are now logged in.')
+        return redirect('login')  # Redirect to the home page after successful registration and login
 
     # If the request is a GET request or the form submission fails, render the registration form
     return render(request, 'auth/register.html')
@@ -103,7 +105,7 @@ def emp_view(request, employee_id, username, password):
             return render(request, 'no_salary_info.html', {'employee_id': employee_id})
     else:
         # Handle the case when no employee is found for the given credentials
-        return render(request, 'no_employee.html')
+        return render(request, 'user/user.html')
 
     
 def pay_stub(request):
