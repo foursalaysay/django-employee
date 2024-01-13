@@ -6,7 +6,7 @@ class Employee(AbstractUser):
     employee_id = models.AutoField(primary_key=True, unique=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    contact_number = models.CharField(max_length=15)
+    contact = models.CharField(max_length=15)
     address = models.TextField()
     password = models.CharField(max_length=128)
     groups = models.ManyToManyField('auth.Group', related_name='employee_groups', blank=True)
