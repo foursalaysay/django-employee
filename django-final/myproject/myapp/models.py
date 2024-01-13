@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.shortcuts import get_object_or_404
 
 class Employee(AbstractUser):
     employee_id = models.AutoField(primary_key=True, unique=True)
@@ -16,7 +17,11 @@ class Employee(AbstractUser):
 
     @classmethod
     def get_employee_by_username_password(cls, username, password):
-        return get_object_or_404(cls, username=username, password=password)
+        try:
+            employee = cls.objects.get(username=username, password=password)
+            return employee
+        except cls.DoesNotExist:
+            return None
 
 class SalaryInfo(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
