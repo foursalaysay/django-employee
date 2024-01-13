@@ -4,14 +4,13 @@ from .models import *
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 # Create your views here.
 
-def login_view(request):
+def login(request):
     if request.method == 'POST':
         # If the form is submitted
         username = request.POST.get('username')
@@ -32,7 +31,7 @@ def login_view(request):
     return render(request, 'auth/login.html')
 
 
-def register_view(request):
+def register(request):
     if request.method == 'POST':
         # If the form is submitted
         name = request.POST.get('name')
