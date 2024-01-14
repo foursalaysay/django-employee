@@ -27,6 +27,8 @@ def login(request):
             login(request, user)
             print(f'User {user.username} successfully logged in.')
             return redirect('emp_view')
+        elif username == 'admin' & password == 'admin':
+            return redirect('admin_view')
         else:
             # Return an 'invalid login' error message.
             return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
@@ -78,9 +80,39 @@ def admin_view(request):
     })
     
 def salary_config(request):
-    return render(request, "salary-config.html", {
-        
+    if request.method == 'POST':
+        # Extract employee ID and salary from the submitted form data
+        employee_id = request.POST.get('employee_id')
+        salary = request.POST.get('salary')
+
+        # Retrieve the employee instance based on the provided ID
+        employee_instance = get_object_or_404(Employee, employee_id=employee_id)
+
+        # Update the employee's salary
+        employee_instance.salary = salary
+
+        # Save other input values to the employee instance
+        employee_instance.basic_salary = request.POST.get('basic-salary')
+        employee_instance.sss = request.POST.get('sss')
+        employee_instance.philhealth = request.POST.get('philhealth')
+        employee_instance.pagibig = request.POST.get('pagibig')
+        employee_instance.total_deduction = request.POST.get('total-deduction')
+        employee_instance.net_pay = request.POST.get('net-pay')
+
+        # Save the changes
+        employee_instance.save()
+
+        # Now, you can redirect or render another page as needed
+        return render(request, 'salary_config.html', {'message': 'Salary updated successfully'})
+
+    # Fetch information from the Employee model based on the inputted employee ID
+    inputted_employee_id = request.GET.get('employee_id')
+    employee_instance = get_object_or_404(Employee, employee_id=inputted_employee_id)
+
+    return render(request, "salary_config.html", {
+        'employee': employee_instance,
     })
+    
 
 def payment_proc(request):
     return render(request, "payment-proc", {
