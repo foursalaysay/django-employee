@@ -16,29 +16,26 @@
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a  class="aside-nav-items" href="admin/admin.html">
-                    <img class="sidenav-logo" src="../../images/salary.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'admin_view' %}">
+                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
                     Dashboard
                 </a>
-
-                <a  class="aside-nav-items"  href="/admin/salary-config/salary-config.html".html">
-                    <img class="sidenav-logo" src="../../images/bank-check.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'salary_config' %}">
+                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
                     Salary Configuration
                 </a>
-
-                <a  class="aside-nav-items" href="/admin/payment-proc/payment-proc.html">
-                    <img class="sidenav-logo" src="../../images/calculator.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'payment_proc' %}">
+                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
                     Payment Processing
                 </a>
-                <a  class="aside-nav-items" href="/admin/reporting/reporting.html">
-                    <img class="sidenav-logo" src="../../images/report.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'reporting' %}">
+                    <img class="sidenav-logo" src="../images/report.png" alt="logo">
                     Reporting
                 </a>
-                <a  class="aside-nav-items" href="/admin/system-config/tax-rate.html">
-                    <img class="sidenav-logo" src="../../images/system.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'system_config' %}">
+                    <img class="sidenav-logo" src="../images/system.png" alt="logo">
                     System Configuration
                 </a>
-                
             </ul>
         </aside>
         <section class="admin-content">

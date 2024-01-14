@@ -115,7 +115,7 @@ def salary_config(request):
     
 
 def payment_proc(request):
-    return render(request, "payment-proc", {
+    return render(request, "payment-proc.html", {
         # Return Data
     })
     
