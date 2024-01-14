@@ -11,23 +11,28 @@ from django.contrib import messages
 
 
 # Create your views here.
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
 def login(request):
     if request.method == 'POST':
+        # Your login logic here
         username = request.POST['username']
         password = request.POST['password']
+        
         user = authenticate(request, username=username, password=password)
-
+        
         if user is not None:
             login(request, user)
-            return redirect('emp_view')  # Change 'home' to the name of your home page URL pattern
+            # Redirect to a success page.
+            return redirect('emp_view')
         else:
-            # Handle invalid login
-            # You can add a message here if you want to display an error message to the user
-            pass
+            # Return an 'invalid login' error message.
+            return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
 
-    # Render the login page (GET request or unsuccessful login)
-    return render(request, 'auth/login.html')
+    else:
+        # Handle GET request, display the login form.
+        return render(request, 'auth/login.html')
 
 
 def register(request):
@@ -41,15 +46,12 @@ def register(request):
         password = request.POST.get('password')
 
         # Check if the username is already taken
-        if User.objects.filter(username=username).exists():
+        if Employee.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
             return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
 
         # Create a new user
-        user = User.objects.create_user(username=username, password=password, email=email, name=name, contact=contact, address=address)
-
-        # Additional fields for the user model
-        user.save()
+        user = Employee.objects.create_user(username=username, password=password, email=email, name=name, contact=contact, address=address)
 
         # Log in the user after successful registration
         user = authenticate(request, username=username, password=password)
