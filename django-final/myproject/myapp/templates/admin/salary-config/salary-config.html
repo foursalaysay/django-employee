@@ -1,106 +1,94 @@
+<!-- salary_config.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/salary-config.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/salary-config.css' %}">
 </head>
 <body>
-    <script src="/js/calculation.js"></script>
+    <script src="{% static 'js/calculation.js' %}"></script>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
-        <a href="/auth/login.html">Logout</a>
+        <a href="{% url 'logout' %}">Logout</a>
     </div>
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a  class="aside-nav-items" href="admin/admin.html">
+                <a class="aside-nav-items" href="{% url 'dashboard' %}">
                     <img class="sidenav-logo" src="../../images/salary.png" alt="logo">
                     Dashboard
                 </a>
-
-                <a  class="aside-nav-items"  href="/admin/salary-config/salary-config.html".html">
+                <a class="aside-nav-items" href="{% url 'salary_config' %}">
                     <img class="sidenav-logo" src="../../images/bank-check.png" alt="logo">
                     Salary Configuration
                 </a>
-
-                <a  class="aside-nav-items" href="/admin/payment-proc/payment-proc.html">
+                <a class="aside-nav-items" href="{% url 'payment_proc' %}">
                     <img class="sidenav-logo" src="../../images/calculator.png" alt="logo">
                     Payment Processing
                 </a>
-                <a  class="aside-nav-items" href="/admin/reporting/reporting.html">
+                <a class="aside-nav-items" href="{% url 'reporting' %}">
                     <img class="sidenav-logo" src="../../images/report.png" alt="logo">
                     Reporting
                 </a>
-                <a  class="aside-nav-items" href="/admin/system-config/tax-rate.html">
+                <a class="aside-nav-items" href="{% url 'system_config' %}">
                     <img class="sidenav-logo" src="../../images/system.png" alt="logo">
                     System Configuration
                 </a>
-                
             </ul>
         </aside>
         <section class="admin-content">
             <div class="salary-config">
                 <h1>Define Salary Components</h1>
-                <label for="id-search">Search Employee Id:</label>
-                <input type="text" name="id-search" placeholder="Search">
-                <button onclick="getEmployee()">Search</button><br/><br/>
-                <!-- SET THE BASIC SALARY OF EMPLOYEE THROUGH ID -->
-
-                <!-- FETCH FIRST THE EMPLOYEE DATA HERE -->
-
-            <form action="" method="post" id="basicSalForm">
-                <div class="user-info">
-                    <div class="fetch-info">
-                        <h3>Employee Name</h3>
-                        <p>Employee Contact</p>
-                        <p>Employee Address</p>
+                <form action="" method="post" id="basicSalForm">
+                    {% csrf_token %}
+                    <div class="user-info">
+                        <div class="fetch-info">
+                            <h3>{{ employee.name }}</h3>
+                            <p>{{ employee.contact }}</p>
+                            <p>{{ employee.address }}</p>
+                        </div>
+                        <label for="employee_id">Employee ID:</label>
+                        <input type="text" id="employee_id" name="employee_id" required>
+                        <label for="salary">Set Employee Basic Salary:</label>
+                        <input type="text" id="salary" name="salary" required>
+                        <hr>
+                        <div class="computation-value">
+                            <div class="computation">
+                                <label for="basic-salary">Basic Salary:</label>
+                                <input type="text" id="basic-salary" name="basic-salary" readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="sss">SSS:</label>
+                                <input type="text" id="sss" name="sss" readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="philhealth">PhilHealth:</label>
+                                <input type="text" id="philhealth" name="philhealth" readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="pagibig">PAGIBIG:</label>
+                                <input type="text" id="pagibig" name="pagibig" readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="total-deduction">Total Deductions:</label>
+                                <input type="text" id="total-deduction" name="total-deduction" readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="net-pay">Net Pay:</label>
+                                <input type="text" id="net-pay" name="net-pay" readonly>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                    <label for="basic-salary">Set Employee Basic Salary:</label>
-                    <input type="text" id="salary" required >
-                <!-- DISPLAY THE SALARY INFORMATION WITH DEDUCTIONS -->
-                <hr>
-                <div class="computation-value">
-                    <div class="computation">
-                        <label>Basic Salary:</label>
-                        <label id="basic-salary"></label>
-                    </div>
-                    <div class="computation">
-                        <label>Deductions:</label>
-                        <div class="deduction-value">
-                            <label >SSS:</label>
-                            <label id="sss"></label>
-                        </div>
-                        <div class="deduction-value">
-                            <label >PhilHealth:</label>
-                            <label id="philhealth"></label>
-                        </div>
-                        <div class="deduction-value">
-                            <label >PAGIBIG:</label>
-                            <label id="pagibig"></label>
-                        </div>
-                        <div class="deduction-value">
-                            <label>Total Deductions:</label>
-                            <label id="total-deduction"></label>
-                        </div>
-                        <div class="deduction-value">
-                            <label>Net Pay:</label>
-                            <label id="net-pay"></label>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <button id="calculateBtn" onclick="deductionValues()">Calculate</button>
-        </form>
-
-                
+                    <button id="calculateBtn" onclick="deductionValues()">Calculate</button>
+                </form>
             </div>
         </section>
     </div>
-    
 </body>
 </html>

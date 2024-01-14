@@ -72,8 +72,9 @@ def register(request):
     return render(request, 'auth/register.html')
 
 def admin_view(request):
+    employees = Employee.objects.all()
     return render(request, 'admin.html', {
-        # PASS DATA
+        'employees' : employees
     })
     
 def salary_config(request):
