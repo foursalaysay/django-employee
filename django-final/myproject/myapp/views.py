@@ -142,7 +142,7 @@ def change_pass(request):
     
 # -------------------------- PAYROLL VIEWS ------------------------------
 
-def view_payroll(request):
+def view_calculation(request):
     return render(request, "payroll.html", {
         
     })

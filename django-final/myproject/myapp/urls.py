@@ -8,19 +8,19 @@ urlpatterns = [
     
     path("register", views.register, name="register"),
     
-    path("user/home", views.emp_view, name="emp_view"),
-    path("user/user-stub", views.pay_stub, name="pay_stub"),
-    path("user/doc-repo", views.doc_repo, name="doc_repo"),
+    path("emp_view/", views.emp_view, name="emp_view"),
+    path("pay-stub", views.pay_stub, name="pay_stub"),
+    path("doc-repo", views.doc_repo, name="doc_repo"),
 
-    path("user/profile-management", views.update_info, name="update_info"),
-    path("user/change-pass", views.change_pass, name="change_pass"),
+    path("update_info", views.update_info, name="update_info"),
+    path("change-pass", views.change_pass, name="change_pass"),
     
-    path("user/payroll", views.view_calculation, name="payroll"),
-    path("user/tax-info", views.tax_info, name="tax_info"),
+    path("view_calculation", views.view_calculation, name="payroll"),
+    path("tax-info", views.tax_info, name="tax_info"),
     
-    path("user/user-report", views.user_report, name="user_report"),
-    path("user/tax-report", views.tax_report, name="tax_report"),
-    path("user/financial-sum", views.financial_sum, name="financial_sum"),
+    path("user-report", views.user_report, name="user_report"),
+    path("tax-report", views.tax_report, name="tax_report"),
+    path("financial-sum", views.financial_sum, name="financial_sum"),
     
     
     # ADMIN URLS
