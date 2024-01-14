@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render
 from .models import *
 
@@ -25,7 +26,7 @@ def login(request):
         if user is not None:
             login(request, user)
             print(f'User {user.username} successfully logged in.')
-            return redirect('admin_view')
+            return redirect('emp_view')
         else:
             # Return an 'invalid login' error message.
             return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
@@ -60,7 +61,7 @@ def register(request):
                 login(request, user)
 
             messages.success(request, 'Registration successful. You are now logged in.')
-            return redirect('login')  # Redirect to the home page after successful registration and login
+            return redirect('emp_view')  # Redirect to the home page after successful registration and login
 
         except IntegrityError:
             # Handle the unique constraint violation (email already exists)
@@ -141,7 +142,7 @@ def change_pass(request):
     
 # -------------------------- PAYROLL VIEWS ------------------------------
 
-def view_calculation(request):
+def view_payroll(request):
     return render(request, "payroll.html", {
         
     })

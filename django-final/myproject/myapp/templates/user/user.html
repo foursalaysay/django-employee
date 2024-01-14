@@ -24,16 +24,16 @@
         </div>
             <ul class="navbar-ul">
                 <li>
-                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'emp_view' %}">Dashboard</a>
                 </li>
                 <li>
-                    <a href="{% url 'profile_management' %}">Profile Management</a>
+                    <a href="{% url 'update_info' %}">Profile Management</a>
                 </li>
                 <li>
-                    <a href="{% url 'payroll' %}">Payroll</a>
+                    <a href="{% url 'view_payroll' %}">Payroll</a>
                 </li>
                 <li>
-                    <a href="{% url 'report' %}">Report</a>
+                    <a href="{% url 'user_report' %}">Report</a>
                 </li>
             </ul>
     </nav>
@@ -48,7 +48,7 @@
    <div class="page-content">
     <aside class="aside-content">
         <ul class="aside-nav">
-            <a  class="aside-nav-items" href="{% url 'dashboard' %}">
+            <a  class="aside-nav-items" href="{% url 'emp_view' %}">
                 <img class="sidenav-logo" src="../../images/salary.png" alt="logo">
                 Salary Information
             </a>
