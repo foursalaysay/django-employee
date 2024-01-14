@@ -24,8 +24,8 @@ def login(request):
         
         if user is not None:
             login(request, user)
-            # Redirect to a success page.
-            return redirect('emp_view')
+            print(f'User {user.username} successfully logged in.')
+            return redirect('admin_view')
         else:
             # Return an 'invalid login' error message.
             return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
@@ -50,16 +50,22 @@ def register(request):
             messages.error(request, 'Username is already taken')
             return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
 
-        # Create a new user
-        user = Employee.objects.create_user(username=username, password=password, email=email, name=name, contact=contact, address=address)
+        try:
+            # Try to create a new user
+            user = Employee.objects.create_user(username=username, password=password, email=email, name=name, contact=contact, address=address)
 
-        # Log in the user after successful registration
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
+            # Log in the user after successful registration
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
 
-        messages.success(request, 'Registration successful. You are now logged in.')
-        return redirect('login')  # Redirect to the home page after successful registration and login
+            messages.success(request, 'Registration successful. You are now logged in.')
+            return redirect('login')  # Redirect to the home page after successful registration and login
+
+        except IntegrityError:
+            # Handle the unique constraint violation (email already exists)
+            messages.error(request, 'Email address is already registered')
+            return redirect('register')
 
     # If the request is a GET request or the form submission fails, render the registration form
     return render(request, 'auth/register.html')
@@ -93,21 +99,22 @@ def system_config(request):
 # <----------------------- EMPLOYEE VIEWS HERE ------------------------->
 # -------------------------------------------------------------------------
 # -------------------------- DASHBOARD VIEWS ------------------------------
-def emp_view(request, employee_id, username, password):
-    employee = Employee.get_employee_by_username_password(username, password)
+def emp_view(request):
+    return render(request, 'user/user.html')
+    # employee = Employee.get_employee_by_username_password(username, password)
     
-    if employee:
-        salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
+    # if employee:
+    #     salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
         
-        if salary_info:
-            # Do something with the retrieved salary_info
-            return render(request, 'user.html', {'salary_info': salary_info})
-        else:
-            # Handle the case when no salary info is found for the given employee_id
-            return render(request, 'no_salary_info.html', {'employee_id': employee_id})
-    else:
-        # Handle the case when no employee is found for the given credentials
-        return render(request, 'user/user.html')
+    #     if salary_info:
+    #         # Do something with the retrieved salary_info
+    #         return render(request, 'user.html', {'salary_info': salary_info})
+    #     else:
+    #         # Handle the case when no salary info is found for the given employee_id
+    #         return render(request, 'no_salary_info.html', {'employee_id': employee_id})
+    # else:
+    #     # Handle the case when no employee is found for the given credentials
+    #     return render(request, 'user/user.html')
 
     
 def pay_stub(request):
