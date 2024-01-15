@@ -20,32 +20,28 @@ from . urls import *
 
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                if user.is_staff:
-                    return redirect('admin_view')
-                else:
-                    print(f'User {user.username} successfully logged in.')
-                    return redirect('emp_view')
-            else:
-                # Authentication failed
-                print(f'Login failed for user: {username}')
-                print(f'Errors: {form.errors}')
-        else:
-            # Return the form with errors.
-            print(f'Form validation failed for user: {form.cleaned_data["username"]}')
-            return render(request, 'auth/login.html', {'form': form})
+        # Get the username and password from the form
+        username = request.POST['username']
+        password = request.POST['password']
 
-    else:
-        form = AuthenticationForm()
-        return render(request, 'auth/login.html', {'form': form})
+        # Authenticate the user
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Log the user in
+            login(request, user)
+
+            # Redirect based on user role
+            if user.is_staff:
+                return redirect('admin_view')
+            else:
+                return redirect('emp_view')
+        else:
+            # Authentication failed, display an error message
+            return render(request, 'auth/login.html', {'error_message': 'Invalid username or password'})
+
+    # If it's a GET request, render the login form
+    return render(request, 'auth/login.html')
 
 def register(request):
     if request.method == 'POST':
@@ -219,21 +215,24 @@ def financial_sum(request):
 # -------------------------- CHANGE PASSWORD ------------------------------
 def change_password_view(request):
     if request.method == 'POST':
-        username = request.user.username
+        user = request.user
         current_password = request.POST.get('current_password')
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
 
         # Authenticate the user with the current password
-        user = authenticate(request, username=username, password=current_password)
+        authenticated_user = authenticate(request, username=user.username, password=current_password)
 
-        if user:
+        if authenticated_user:
             # Check if the new password and confirm password match
             if new_password == confirm_password:
-                # Update the password and save the user
+                # Update the password using the set_password method
                 user.set_password(new_password)
                 user.save()
-                login(request, user)  # Log the user in with the updated password
+                
+                # Log the user in with the updated password
+                login(request, user)
+
                 messages.success(request, 'Password changed successfully.')
                 return redirect('change_password')
             else:

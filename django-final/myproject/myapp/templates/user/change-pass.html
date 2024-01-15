@@ -60,7 +60,7 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            <form action="{% url 'change_password' %}" method="post">
+            <form action="{% url 'change_pass' %}" method="post">
                 {% csrf_token %}
                 <div class="change-pass-container">
                     <h2>Change Employee Password</h2>

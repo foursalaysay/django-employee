@@ -12,17 +12,17 @@
 
 .change-pass-container{
     width: 500px;
-    height: 300px;
+    height: 700px;
     border: 2px solid gray;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding-top: 30px;
     margin-left: 300px;
-    margin-top: 70px;
+    margin-top: 50px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -40,6 +40,6 @@
 }
 
 .change-pass-container input{
-    height: 30px;
+    height: 20px;
     width: 300px;
 }
