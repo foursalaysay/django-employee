@@ -21,16 +21,16 @@
         </div>
         <ul class="navbar-ul">
             <li>
-                <a href="user.html">Dashboard</a>
+                <a href="{% url 'emp_view' %}">Dashboard</a>
             </li>
             <li>
-                <a href="profile-management.html">Profile Management</a>
+                <a href="{% url 'update_info' %}">Profile Management</a>
             </li>
             <li>
-                <a href="payroll.html">Payroll</a>
+                <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
             <li>
-                <a href="report.html">Report</a>
+                <a href="{% url 'user_report' %}">Report</a>
             </li>
         </ul>
     </nav>

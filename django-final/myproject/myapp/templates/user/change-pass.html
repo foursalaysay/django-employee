@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +12,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/change-pass.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/change-pass.css' %}">
 </head>
 <body>
     <nav>
@@ -22,16 +25,16 @@
         </div>
         <ul class="navbar-ul">
             <li>
-                <a href="user.html">Dashboard</a>
+                <a href="{% url 'emp_view' %}">Dashboard</a>
             </li>
             <li>
-                <a href="profile-management.html">Profile Management</a>
+                <a href="{% url 'update_info' %}">Profile Management</a>
             </li>
             <li>
-                <a href="payroll.html">Payroll</a>
+                <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
             <li>
-                <a href="report.html">Report</a>
+                <a href="{% url 'user_report' %}">Report</a>
             </li>
         </ul>
     </nav>
@@ -46,25 +49,30 @@
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a  class="aside-nav-items" href="profile-management.html">
-                    <img class="sidenav-logo" src="../images/update-info.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'update_info' %}">
+                    <img class="sidenav-logo" src="{% static 'images/update-info.png' %}" alt="logo">
                     Update Information
                 </a>
-                <a  class="aside-nav-items"   href="change-pass.html">
-                    <img class="sidenav-logo" src="../images/password.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'change_pass' %}">
+                    <img class="sidenav-logo" src="{% static 'images/password.png' %}" alt="logo">
                     Change Password
                 </a>
             </ul>
         </aside>
         <section class="dashboard-content">
-                <form action="" method="post">
-                    <div class="change-pass-container">
-                        <h2>Change Employee Password</h2>
-                        <label for="change-pass">Provide the New Password</label>
-                        <input type="text" id="change-pass" name="change_pass">
-                        <button>Change Password</button>
-                    </div>
-                </form>
+            <form action="{% url 'change_password' %}" method="post">
+                {% csrf_token %}
+                <div class="change-pass-container">
+                    <h2>Change Employee Password</h2>
+                    <label for="current_password">Current Password</label>
+                    <input type="password" id="current_password" name="current_password" required>
+                    <label for="new_password">New Password</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <button type="submit">Change Password</button>
+                </div>
+            </form>
         </section>
     </div>
 </body>

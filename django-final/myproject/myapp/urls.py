@@ -8,14 +8,14 @@ urlpatterns = [
     
     path("register", views.register, name="register"),
     
-    path("emp_view/", views.emp_view, name="emp_view"),
-    path("pay-stub", views.pay_stub, name="pay_stub"),
+    path("emp_view", views.emp_view, name="emp_view"),
+    path("user-stub", views.user_stub, name="user_stub"),
     path("doc-repo", views.doc_repo, name="doc_repo"),
 
     path("update_info", views.update_info, name="update_info"),
     path("change-pass", views.change_pass, name="change_pass"),
     
-    path("view_calculation", views.view_calculation, name="payroll"),
+    path("view_calculation", views.view_calculation, name="view_calculation"),
     path("tax-info", views.tax_info, name="tax_info"),
     
     path("user-report", views.user_report, name="user_report"),

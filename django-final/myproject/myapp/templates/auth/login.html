@@ -18,16 +18,9 @@
             <div class="login-form">
                 <h1>Login</h1>
                 <p>Login with your credentials</p>
-                <form method="post">
+                <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
-                    <div class="input-container">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username">
-                    </div>
-                    <div class="input-container">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password">
-                    </div>
+                    {{ form.as_p }}
                     <button type="submit">Login</button>
                 </form>
                 <!-- SIGN UP ROUTE HERE -->

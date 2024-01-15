@@ -14,30 +14,38 @@ from django.contrib import messages
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+
+from . urls import *
 
 def login(request):
     if request.method == 'POST':
-        # Your login logic here
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            if (user.username == 'admin' & user.password == 'password'):
-                return redirect('admin_view')
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                if user.is_staff:
+                    return redirect('admin_view')
+                else:
+                    print(f'User {user.username} successfully logged in.')
+                    return redirect('emp_view')
             else:
-                print(f'User {user.username} successfully logged in.')
-                return redirect('emp_view')
+                # Authentication failed
+                print(f'Login failed for user: {username}')
+                print(f'Errors: {form.errors}')
         else:
-            # Return an 'invalid login' error message.
-            return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
+            # Return the form with errors.
+            print(f'Form validation failed for user: {form.cleaned_data["username"]}')
+            return render(request, 'auth/login.html', {'form': form})
 
     else:
-        # Handle GET request, display the login form.
-        return render(request, 'auth/login.html')
-
+        form = AuthenticationForm()
+        return render(request, 'auth/login.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -76,7 +84,7 @@ def register(request):
 
 def admin_view(request):
     employees = Employee.objects.all()
-    return render(request, 'admin/admin.html', {
+    return render(request, 'admin-view/admin.html', {
         'employees' : employees
     })
     
@@ -153,57 +161,84 @@ def emp_view(request):
     #     return render(request, 'user/user.html')
 
     
-def pay_stub(request):
-    return render(request, "user-stub.html", {
+def user_stub(request):
+    return render(request, "user/user-stub.html", {
         
     })
 
 def doc_repo(request):
-    return render(request, "doc-repo.html", {
+    return render(request, "user/doc-repo.html", {
         
     })
     
 # -------------------------- PROFILE MANAGEMENT VIEWS ------------------------------
 
 def update_info(request):
-    return render(request, "profile-management.html", {
+    return render(request, "user/profile-management.html", {
         
     })
     
 def change_pass(request):
-    return render(request, "change-pass.html", {
+    return render(request, "user/change-pass.html", {
         
     })
     
 # -------------------------- PAYROLL VIEWS ------------------------------
 
 def view_calculation(request):
-    return render(request, "payroll.html", {
+    return render(request, "user/payroll.html", {
         
     })
     
 def tax_info(request):
-    return render(request, "tax-info.html", {
+    return render(request, "user/tax-info.html", {
         
     })
     
 # -------------------------- REPORT VIEWS ------------------------------
 
 def user_report(request):
-    return render(request, "report.html", {
+    return render(request, "user/report.html", {
         
     })
     
 def tax_report(request):
-    return render(request, "tax-report.html", {
+    return render(request, "user/tax-report.html", {
         
     })
     
 def financial_sum(request):
-    return render(request, "financial-sum.html", {
+    return render(request, "user/financial-sum.html", {
         
     })
 
 
     
-    
+# -------------------------- ADDITIONAL VIEWS ------------------------------
+
+# -------------------------- CHANGE PASSWORD ------------------------------
+def change_password_view(request):
+    if request.method == 'POST':
+        username = request.user.username
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Authenticate the user with the current password
+        user = authenticate(request, username=username, password=current_password)
+
+        if user:
+            # Check if the new password and confirm password match
+            if new_password == confirm_password:
+                # Update the password and save the user
+                user.set_password(new_password)
+                user.save()
+                login(request, user)  # Log the user in with the updated password
+                messages.success(request, 'Password changed successfully.')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'New password and confirm password do not match.')
+        else:
+            messages.error(request, 'Current password is incorrect.')
+
+    return render(request, 'your_template.html')  # Replace 'your_template.html' with your actual template

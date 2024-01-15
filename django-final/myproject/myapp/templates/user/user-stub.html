@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
@@ -21,16 +22,16 @@
         </div>
         <ul class="navbar-ul">
             <li>
-                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'emp_view' %}">Dashboard</a>
             </li>
             <li>
-                <a href="{% url 'profile_management' %}">Profile Management</a>
+                <a href="{% url 'update_info' %}">Profile Management</a>
             </li>
             <li>
-                <a href="{% url 'payroll' %}">Payroll</a>
+                <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
             <li>
-                <a href="{% url 'report' %}">Report</a>
+                <a href="{% url 'user_report' %}">Report</a>
             </li>
         </ul>
     </nav>
@@ -46,13 +47,13 @@
         <aside class="aside-content">
             <ul class="aside-nav">
                 <li>
-                    <a class="aside-nav-items" href="{% url 'user_info' %}">
+                    <a class="aside-nav-items" href="{% url 'emp_view' %}">
                         <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
                         Salary Information
                     </a>
                 </li>
                 <li>
-                    <a class="aside-nav-items" href="{% url 'pay_stubs' %}">
+                    <a class="aside-nav-items" href="{% url 'user_stub' %}">
                         <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
                         Pay Stubs
                     </a>
