@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
@@ -17,7 +18,6 @@
         <div class="right-side-header">
             <h1>Current Time:</h1>
             <p id="currentTime"></p>
-            <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     <div class="page-content">
@@ -54,25 +54,28 @@
                         <p>{{ employee.address }}</p>
                         <p>{{ employee.contact }}</p>
                         <button>Delete Employee</button>
-                        <a href="{% url 'view_employee' employee.id %}">View Employee</a>
+                        <a href="#" onclick="openEditDialog('{{ employee.name }}', '{{ employee.address }}', '{{ employee.contact }}')">View Employee</a>
                     </div>
                 {% endfor %}
             </div>
-
+            
             <!-- THIS IS FOR EDITING THE EMPLOYEE INFORMATION -->
             <div id="dialog" class="dialog">
                 <div class="dialog-content">
                     <span class="close" onclick="closeDialog()">&times;</span>
                     <h1>Edit Employee Information</h1>
-                    <div class="update-emp-info">
-                        <label for="name">Name:</label><br>
-                        <input type="text" name="name"><br>
-                        <label for="address">Address:</label><br>
-                        <input name="address"></input><br>
-                        <label for="contact">Contact Number:</label><br>
-                        <input type="tel" name="contact"><br><br>
-                        <input type="submit" value="Update">
-                    </div>
+                    <form method="post" action="{% url 'update_employee' %}">
+                        {% csrf_token %}
+                        <div class="update-emp-info">
+                            <label for="name">Name:</label><br>
+                            <input type="text" name="name" id="editName"><br>
+                            <label for="address">Address:</label><br>
+                            <input name="address" id="editAddress"></input><br>
+                            <label for="contact">Contact Number:</label><br>
+                            <input type="tel" name="contact" id="editContact"><br><br>
+                            <input type="submit" value="Update">
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

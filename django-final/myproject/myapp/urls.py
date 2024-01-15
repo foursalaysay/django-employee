@@ -24,9 +24,9 @@ urlpatterns = [
     
     
     # ADMIN URLS
-    path("admin/dashboard", views.admin_view, name="admin_view"),
-    path("admin/salary-config", views.salary_config, name="salary_config"),
-    path("admin/payment-proc", views.payment_proc, name="payment_proc"),
-    path("admin/reporting", views.reporting, name="reporting"),
-    path("admin/system-config", views.system_config, name="system_config")
+    path("admin-dashboard", views.admin_view, name="admin_view"),
+    path('admin-salary-config.html', views.salary_config, name="salary_config"),
+    path("admin-payment-proc", views.payment_proc, name="payment_proc"),
+    path("admin-reporting", views.reporting, name="reporting"),
+    path("admin-system-config", views.system_config, name="system_config")
 ]

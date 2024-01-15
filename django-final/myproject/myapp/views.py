@@ -25,10 +25,11 @@ def login(request):
         
         if user is not None:
             login(request, user)
-            print(f'User {user.username} successfully logged in.')
-            return redirect('emp_view')
-        elif username == 'admin' & password == 'admin':
-            return redirect('admin_view')
+            if (user.username == 'admin' & user.password == 'password'):
+                return redirect('admin_view')
+            else:
+                print(f'User {user.username} successfully logged in.')
+                return redirect('emp_view')
         else:
             # Return an 'invalid login' error message.
             return render(request, 'auth/login.html', {'error_message': 'Invalid login credentials'})
@@ -75,11 +76,12 @@ def register(request):
 
 def admin_view(request):
     employees = Employee.objects.all()
-    return render(request, 'admin.html', {
+    return render(request, 'admin/admin.html', {
         'employees' : employees
     })
     
 def salary_config(request):
+    render(request, 'admin-salary-config.html')
     if request.method == 'POST':
         # Extract employee ID and salary from the submitted form data
         employee_id = request.POST.get('employee_id')
@@ -103,13 +105,13 @@ def salary_config(request):
         employee_instance.save()
 
         # Now, you can redirect or render another page as needed
-        return render(request, 'salary_config.html', {'message': 'Salary updated successfully'})
+        return render(request, 'admin-salary-config.html', {'message': 'Salary updated successfully'})
 
     # Fetch information from the Employee model based on the inputted employee ID
     inputted_employee_id = request.GET.get('employee_id')
     employee_instance = get_object_or_404(Employee, employee_id=inputted_employee_id)
 
-    return render(request, "salary_config.html", {
+    return render(request, "'admin-view/salary-config.html'", {
         'employee': employee_instance,
     })
     
