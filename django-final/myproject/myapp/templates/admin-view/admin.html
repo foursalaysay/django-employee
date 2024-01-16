@@ -1,11 +1,12 @@
 <!-- admin_dashboard.html -->
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
@@ -15,34 +16,31 @@
     <script src="{% static 'js/admin.js' %}"></script>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
-        <div class="right-side-header">
-            <h1>Current Time:</h1>
-            <p id="currentTime"></p>
-        </div>
+        <a href="{% url 'user_login' %}">Logout</a>
     </div>
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a class="aside-nav-items" href="{% url 'admin_view' %}">
-                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
+                <li class="aside-nav-items"><a href="{% url 'admin_view' %}">
+                    <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
                     Dashboard
-                </a>
-                <a class="aside-nav-items" href="{% url 'salary_config' %}">
-                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
+                </a></li>
+                <li class="aside-nav-items"><a href="{% url 'salary_config' %}">
+                    <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
                     Salary Configuration
-                </a>
-                <a class="aside-nav-items" href="{% url 'payment_proc' %}">
-                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
+                </a></li>
+                <li class="aside-nav-items"><a href="{% url 'payment_proc' %}">
+                    <img class="sidenav-logo" src="{% static 'images/calculator.png' %}" alt="logo">
                     Payment Processing
-                </a>
-                <a class="aside-nav-items" href="{% url 'reporting' %}">
-                    <img class="sidenav-logo" src="../images/report.png" alt="logo">
+                </a></li>
+                <li class="aside-nav-items"><a href="{% url 'reporting' %}">
+                    <img class="sidenav-logo" src="{% static 'images/report.png' %}" alt="logo">
                     Reporting
-                </a>
-                <a class="aside-nav-items" href="{% url 'system_config' %}">
-                    <img class="sidenav-logo" src="../images/system.png" alt="logo">
+                </a></li>
+                <li class="aside-nav-items"><a href="{% url 'system_config' %}">
+                    <img class="sidenav-logo" src="{% static 'images/system.png' %}" alt="logo">
                     System Configuration
-                </a>
+                </a></li>
             </ul>
         </aside>
         <section class="admin-content">
@@ -64,7 +62,7 @@
                 <div class="dialog-content">
                     <span class="close" onclick="closeDialog()">&times;</span>
                     <h1>Edit Employee Information</h1>
-                    <form method="post" action="{% url 'update_employee' %}">
+                    <form method="post" action="{% url 'admin_view' %}">
                         {% csrf_token %}
                         <div class="update-emp-info">
                             <label for="name">Name:</label><br>

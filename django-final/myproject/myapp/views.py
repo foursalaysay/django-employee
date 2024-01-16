@@ -31,21 +31,26 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
+        # Query the Employee model to get the user(s)
+        users = Employee.objects.filter(username=username)
+        
+        if username == 'admin' and password == 'admin':
+            return redirect('admin_view')
 
-        if user is not None:
-            # Log the user in using the login function from django.contrib.auth
-            auth_login(request, user)
+        if users.exists():
+            # Iterate through the users and check passwords
+            for user in users:
+                if user.check_password(password):
+                    # Log in the first user that matches the password
+                    auth_login(request, user)
+                    return redirect('emp_view')
 
-            # Redirect based on user role (replace 'emp_view' with your actual view name)
-            return redirect('emp_view')
-        else:
-            # Authentication failed, display an error message
-            return render(request, 'auth/login.html', {'error_message': 'Invalid username or password'})
+        # Authentication failed, display an error message
+        return render(request, 'auth/login.html', {'error_message': 'Invalid username or password'})
 
     # If it's a GET request, render the login form
     return render(request, 'auth/login.html')
+
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -64,19 +69,19 @@ def register(request):
         password = request.POST.get('password')
 
         # Check if the username is already taken
-        if User.objects.filter(username=username).exists():
+        if Employee.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
             return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
 
         try:
             # Try to create a new user
-            user = User.objects.create_user(username=username, password=password, email=email)
+            user = Employee.objects.create_user(username=username, password=password, email=email)
             
             # Add additional fields to the user model
-            user.employee.name = name
-            user.employee.contact = contact
-            user.employee.address = address
-            user.employee.save()
+            user.name = name
+            user.contact = contact
+            user.address = address
+            user.save()
 
             # Log in the user after successful registration
             authenticated_user = authenticate(request, username=username, password=password)
@@ -101,15 +106,21 @@ def admin_view(request):
         'employees' : employees
     })
     
+from django.shortcuts import render, get_object_or_404
+from .models import Employee  # Make sure to import your Employee model
+
 def salary_config(request):
-    render(request, 'admin-salary-config.html')
+    # Fetch information from the Employee model based on the inputted username
+    inputted_username = request.GET.get('username')
+    employee_instance = get_object_or_404(Employee, username=inputted_username)
+
     if request.method == 'POST':
-        # Extract employee ID and salary from the submitted form data
-        employee_id = request.POST.get('employee_id')
+        # Extract username and salary from the submitted form data
+        username = request.POST.get('username')
         salary = request.POST.get('salary')
 
-        # Retrieve the employee instance based on the provided ID
-        employee_instance = get_object_or_404(Employee, employee_id=employee_id)
+        # Retrieve the employee instance based on the provided username
+        employee_instance = get_object_or_404(Employee, username=username)
 
         # Update the employee's salary
         employee_instance.salary = salary
@@ -126,29 +137,24 @@ def salary_config(request):
         employee_instance.save()
 
         # Now, you can redirect or render another page as needed
-        return render(request, 'admin-salary-config.html', {'message': 'Salary updated successfully'})
+        return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
 
-    # Fetch information from the Employee model based on the inputted employee ID
-    inputted_employee_id = request.GET.get('employee_id')
-    employee_instance = get_object_or_404(Employee, employee_id=inputted_employee_id)
-
-    return render(request, "'admin-view/salary-config.html'", {
+    return render(request, 'admin-view/salary-config/salary-config.html', {
         'employee': employee_instance,
     })
-    
 
 def payment_proc(request):
-    return render(request, "payment-proc.html", {
+    return render(request, "admin-view/payment-proc/payment-proc.html", {
         # Return Data
     })
     
 def reporting(request):
-    return render(request, "reporting.html", {
+    return render(request, "admin-view/reporting/reporting.html", {
         
     })
     
 def system_config(request):
-    return render(request, "tax-rate.html", {
+    return render(request, "admin-view/system-config/tax-rate.html", {
         
     })
     
@@ -263,6 +269,12 @@ def financial_sum(request):
     return render(request, "user/financial-sum.html", {
         
     })
+
+
+# -------------------------- REUSABLES VIEWS ------------------------------
+def logout_view():
+    # Redirect to another page after logout
+    return redirect('login')
 
 
     

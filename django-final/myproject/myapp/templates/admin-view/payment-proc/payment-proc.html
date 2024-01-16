@@ -1,39 +1,41 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/payment-proc.css">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment-proc.css' %}">
 </head>
 <body>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
-        <a href="/auth/login.html">Logout</a>
+        <a href="{% url 'user_login' %}">Logout</a>
     </div>
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
                 <a class="aside-nav-items" href="{% url 'admin_view' %}">
-                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
                     Dashboard
                 </a>
                 <a class="aside-nav-items" href="{% url 'salary_config' %}">
-                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
                     Salary Configuration
                 </a>
                 <a class="aside-nav-items" href="{% url 'payment_proc' %}">
-                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/calculator.png' %}" alt="logo">
                     Payment Processing
                 </a>
                 <a class="aside-nav-items" href="{% url 'reporting' %}">
-                    <img class="sidenav-logo" src="../images/report.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/report.png' %}" alt="logo">
                     Reporting
                 </a>
                 <a class="aside-nav-items" href="{% url 'system_config' %}">
-                    <img class="sidenav-logo" src="../images/system.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/system.png' %}" alt="logo">
                     System Configuration
                 </a>
             </ul>
@@ -43,39 +45,17 @@
             <div class="payment-proc">
                 <div class="card-container">
                     <!-- FETCH ALL EMPLOYEES  -->
-                    <div class="card-content">
-                        <h1>Employee Name</h1>
-                        <p>Employee Address</p>
-                        <p>Employee Contact</p>
-                        <button>Send Salary</button>
-                    </div>
-                    <div class="card-content">
-                        <h1>Employee Name</h1>
-                        <p>Employee Address</p>
-                        <p>Employee Contact</p>
-                        <button>Send Salary</button>
-                    </div>
-                    <div class="card-content">
-                        <h1>Employee Name</h1>
-                        <p>Employee Address</p>
-                        <p>Employee Contact</p>
-                        <button>Send Salary</button>
-                    </div>
-                    <div class="card-content">
-                        <h1>Employee Name</h1>
-                        <p>Employee Address</p>
-                        <p>Employee Contact</p>
-                        <button>Send Salary</button>
-                    </div>
-                    <div class="card-content">
-                        <h1>Employee Name</h1>
-                        <p>Employee Address</p>
-                        <p>Employee Contact</p>
-                        <button>Send Salary</button>
-                    </div>
+                    {% for employee in employees %}
+                        <div class="card-content">
+                            <h1>{{ employee.name }}</h1>
+                            <p>{{ employee.address }}</p>
+                            <p>{{ employee.contact }}</p>
+                            <button>Send Salary</button>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </section>
     </div>
-    
 </body>
 </html>
