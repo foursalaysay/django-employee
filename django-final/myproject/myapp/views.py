@@ -43,6 +43,7 @@ def user_login(request):
                 if user.check_password(password):
                     # Log in the first user that matches the password
                     auth_login(request, user)
+                    request.session['logged_in_user'] = username
                     return redirect('emp_view')
 
         # Authentication failed, display an error message
@@ -362,3 +363,14 @@ def delete_employee(request, username):
     else:
         # Handle the case where no employees with the specified username were found
         return render(request, '404.html')
+    
+
+def user_salary_view(request):
+    username = request.user.username
+    user_salary_data = SalaryInfo.objects.get(user__username=username)
+    
+    context = {
+        'user_salary_data': user_salary_data
+    }
+
+    return render(request, 'user/user.html', context)

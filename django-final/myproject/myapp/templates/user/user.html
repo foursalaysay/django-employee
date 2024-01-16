@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
     <script src=""></script>
 </head>
 <body>
@@ -70,7 +71,29 @@
     </aside>
     <div class="dashboard-content">
         <!-- ... -->
-        
+        <h1>Salary Details for {{ user_salary_data.user.username }}</h1>
+        <table>
+            <tr>
+                <th>Basic Salary</th>
+                <th>SSS</th>
+                <th>Philhealth</th>
+                <th>Pagibig</th>
+                <th>Tax</th>
+                <th>Total Deduction</th>
+                <th>Net Pay</th>
+                <th>Date Saved</th>
+            </tr>
+            <tr>
+                <td>{{ user_salary_data.basic_salary }}</td>
+                <td>{{ user_salary_data.sss }}</td>
+                <td>{{ user_salary_data.philhealth }}</td>
+                <td>{{ user_salary_data.pagibig }}</td>
+                <td>{{ user_salary_data.tax }}</td>
+                <td>{{ user_salary_data.total_deduction }}</td>
+                <td>{{ user_salary_data.netpay }}</td>
+                <td>{{ user_salary_data.date_saved }}</td>
+            </tr>
+        </table>
         
     </div>
 </div>
