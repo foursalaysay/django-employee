@@ -25,7 +25,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import render, redirect
 from django.contrib.auth import update_session_auth_hash
 
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         # Get the username and password from the form
         username = request.POST['username']
@@ -35,10 +35,10 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Log the user in using the login function
-            login(request, user)
+            # Log the user in using the login function from django.contrib.auth
+            auth_login(request, user)
 
-            # Redirect based on user ro
+            # Redirect based on user role (replace 'emp_view' with your actual view name)
             return redirect('emp_view')
         else:
             # Authentication failed, display an error message
@@ -46,8 +46,6 @@ def login(request):
 
     # If it's a GET request, render the login form
     return render(request, 'auth/login.html')
-
-
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect

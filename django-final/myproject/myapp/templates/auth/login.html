@@ -18,7 +18,7 @@
             <div class="login-form">
                 <h1>Login</h1>
                 <p>Login with your credentials</p>
-                <form method="post" action="{% url 'login' %}" autocomplete="on">
+                <form method="post" action="{% url 'user_login' %}" autocomplete="on">
                     {% csrf_token %}
                     <div class="input-container">
                         <label for="username">Username:</label>

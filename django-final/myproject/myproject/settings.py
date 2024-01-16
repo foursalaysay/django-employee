@@ -96,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # settings.py
-AUTH_USER_MODEL = 'myapp.Employee'
+
 
 
 
