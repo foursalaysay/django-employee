@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tax-info.css' %}">
 </head>
 <body>
     <nav>
@@ -58,7 +59,19 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            
+            <h1>Tax and Date Saved View</h1>
+            <table>
+                <tr>
+                    <th>Tax</th>
+                    <th>Date Saved</th>
+                </tr>
+                {% for entry in salary_data %}
+                <tr>
+                    <td>{{ entry.tax }}</td>
+                    <td>{{ entry.date_saved }}</td>
+                </tr>
+                {% endfor %}
+            </table>
         </section>
     </div>
 </body>

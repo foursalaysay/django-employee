@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payroll.css' %}">
 </head>
 <body>
     <nav>
@@ -58,6 +59,38 @@
         </aside>
         <section class="dashboard-content">
             <!-- Your section content goes here -->
+            <h1>Employee Details</h1>
+
+    <table>
+        <tr>
+            <th>Basic Salary</th>
+            <td>{{ employee.basic_salary }}</td>
+        </tr>
+        <tr>
+            <th>SSS</th>
+            <td>{{ employee.sss }}</td>
+        </tr>
+        <tr>
+            <th>Philhealth</th>
+            <td>{{ employee.philhealth }}</td>
+        </tr>
+        <tr>
+            <th>Pagibig</th>
+            <td>{{ employee.pagibig }}</td>
+        </tr>
+        <tr>
+            <th>Tax</th>
+            <td>{{ employee.tax }}</td>
+        </tr>
+        <tr>
+            <th>Total Deduction</th>
+            <td>{{ employee.total_deduction }}</td>
+        </tr>
+        <tr>
+            <th>Net Pay</th>
+            <td>{{ employee.netpay }}</td>
+        </tr>
+    </table>
         </section>
     </div>
 </body>

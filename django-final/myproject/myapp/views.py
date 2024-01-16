@@ -202,8 +202,16 @@ def update_info(request):
         new_contact = request.POST.get('contact')
         new_address = request.POST.get('address')
 
-        # Get the current user (Employee) instance
-        employee = request.user
+        # Get the username from the session
+        username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+        # Get the user (Employee) instance using the username
+        try:
+            employee = User.objects.get(username=username)
+        except User.DoesNotExist:
+            # Handle the case where the user is not found
+            messages.error(request, 'User not found.')
+            return redirect('emp_view')  # Redirect to the appropriate view
 
         # Update the profile information
         employee.email = new_email
@@ -214,7 +222,7 @@ def update_info(request):
         messages.success(request, 'Profile information updated successfully!')
         return redirect('emp_view')  # Replace with the actual URL to view the user profile
 
-    return render(request, 'user/profile-management.html')  # Replace 'your_template_name.html' with the actual template name
+    return render(request, 'user/profile-management.html') # Replace 'your_template_name.html' with the actual template name
     
 def change_pass(request):
     if request.method == 'POST':
@@ -247,30 +255,64 @@ def change_pass(request):
 # -------------------------- PAYROLL VIEWS ------------------------------
 
 def view_calculation(request):
-    return render(request, "user/payroll.html", {
-        
-    })
+    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+    # Get the employee instance based on the username
+    employee = get_object_or_404(Employee, user__username=username)
+
+    return render(request, 'user/payroll.html', {'employee': employee})
     
 def tax_info(request):
-    return render(request, "user/tax-info.html", {
-        
-    })
+    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+    # Get the employee associated with the username
+    user = User.objects.get(username=username)
+    employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
+
+    # Filter SalaryInfo objects based on the associated employee
+    salary_info_list = SalaryInfo.objects.filter(employee=employee)
+
+    return render(request, 'user/tax-info.html', {'salary_info_list': salary_info_list})
     
 # -------------------------- REPORT VIEWS ------------------------------
 
 def user_report(request):
+    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+    # Get the employee associated with the username
+    user = User.objects.get(username=username)
+    employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
+
+    # Filter SalaryInfo objects based on the associated employee
+    user_report_list = SalaryInfo.objects.filter(employee=employee)
     return render(request, "user/report.html", {
-        
+        'user_report_list ' : user_report_list 
     })
     
 def tax_report(request):
+    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+    # Get the employee associated with the username
+    user = User.objects.get(username=username)
+    employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
+
+    # Filter SalaryInfo objects based on the associated employee
+    tax_report_list = SalaryInfo.objects.filter(employee=employee)
     return render(request, "user/tax-report.html", {
-        
+        'tax_report_list' : tax_report_list
     })
     
 def financial_sum(request):
+    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+
+    # Get the employee associated with the username
+    user = User.objects.get(username=username)
+    employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
+
+    # Filter SalaryInfo objects based on the associated employee
+    financial_sum = SalaryInfo.objects.filter(employee=employee)
     return render(request, "user/financial-sum.html", {
-        
+        'financial_sum' : financial_sum
     })
 
 
