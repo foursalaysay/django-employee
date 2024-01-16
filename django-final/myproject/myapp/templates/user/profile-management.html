@@ -12,10 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/css/style.css' %}">
-    <link rel="stylesheet" href="{% static '/css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static '/css/profile-management.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile-management.css' %}">
 </head>
 <body>
     <nav>
@@ -49,17 +49,17 @@
         <aside class="aside-content">
             <ul class="aside-nav">
                 <a class="aside-nav-items" href="{% url 'update_info' %}">
-                    <img class="sidenav-logo" src="../images/update-info.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/update-info.png' %}" alt="logo">
                     Update Information
                 </a>
                 <a class="aside-nav-items" href="{% url 'change_pass' %}">
-                    <img class="sidenav-logo" src="../images/password.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/password.png' %}" alt="logo">
                     Change Password
                 </a>
             </ul>
         </aside>
         <section class="dashboard-content">
-            <form action="" method="post">
+            <form action="{% url 'update_info' %}" method="post">
                 {% csrf_token %}
                 <div class="update-container">
                     <h2 class="title">Update Profile Information</h2>

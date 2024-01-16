@@ -95,6 +95,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+# settings.py
+AUTH_USER_MODEL = 'myapp.Employee'
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

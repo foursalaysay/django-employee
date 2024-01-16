@@ -10,6 +10,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import render, redirect
+
 
 # Create your views here.
 from django.shortcuts import render, redirect
@@ -17,6 +20,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 
 from . urls import *
+
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import render, redirect
+from django.contrib.auth import update_session_auth_hash
 
 def login(request):
     if request.method == 'POST':
@@ -28,20 +35,25 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Log the user in
+            # Log the user in using the login function
             login(request, user)
 
-            # Redirect based on user role
-            if user.is_staff:
-                return redirect('admin_view')
-            else:
-                return redirect('emp_view')
+            # Redirect based on user ro
+            return redirect('emp_view')
         else:
             # Authentication failed, display an error message
             return render(request, 'auth/login.html', {'error_message': 'Invalid username or password'})
 
     # If it's a GET request, render the login form
     return render(request, 'auth/login.html')
+
+
+
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -54,29 +66,36 @@ def register(request):
         password = request.POST.get('password')
 
         # Check if the username is already taken
-        if Employee.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
             return redirect('register')  # Assuming 'register' is the name of your registration URL pattern
 
         try:
             # Try to create a new user
-            user = Employee.objects.create_user(username=username, password=password, email=email, name=name, contact=contact, address=address)
+            user = User.objects.create_user(username=username, password=password, email=email)
+            
+            # Add additional fields to the user model
+            user.employee.name = name
+            user.employee.contact = contact
+            user.employee.address = address
+            user.employee.save()
 
             # Log in the user after successful registration
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
+            authenticated_user = authenticate(request, username=username, password=password)
+            if authenticated_user is not None:
+                login(request, authenticated_user)
 
             messages.success(request, 'Registration successful. You are now logged in.')
             return redirect('emp_view')  # Redirect to the home page after successful registration and login
 
         except IntegrityError:
-            # Handle the unique constraint violation (email already exists)
-            messages.error(request, 'Email address is already registered')
+            # Handle the unique constraint violation (email or username already exists)
+            messages.error(request, 'Email address or username is already registered')
             return redirect('register')
 
     # If the request is a GET request or the form submission fails, render the registration form
     return render(request, 'auth/register.html')
+
 
 def admin_view(request):
     employees = Employee.objects.all()
@@ -170,14 +189,53 @@ def doc_repo(request):
 # -------------------------- PROFILE MANAGEMENT VIEWS ------------------------------
 
 def update_info(request):
-    return render(request, "user/profile-management.html", {
-        
-    })
+    if request.method == 'POST':
+        # Retrieve user input from the form
+        new_email = request.POST.get('email')
+        new_contact = request.POST.get('contact')
+        new_address = request.POST.get('address')
+
+        # Get the current user (Employee) instance
+        employee = request.user
+
+        # Update the profile information
+        employee.email = new_email
+        employee.contact = new_contact
+        employee.address = new_address
+        employee.save()
+
+        messages.success(request, 'Profile information updated successfully!')
+        return redirect('emp_view')  # Replace with the actual URL to view the user profile
+
+    return render(request, 'user/profile-management.html')  # Replace 'your_template_name.html' with the actual template name
     
 def change_pass(request):
-    return render(request, "user/change-pass.html", {
-        
-    })
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if the current password is correct
+        if not request.user.check_password(current_password):
+            messages.error(request, 'Current password is incorrect.')
+            return redirect('change_pass')
+
+        # Check if the new password and confirm password match
+        if new_password != confirm_password:
+            messages.error(request, 'New password and confirm password do not match.')
+            return redirect('change_pass')
+
+        # Change the password
+        request.user.set_password(new_password)
+        request.user.save()
+
+        # Update the session to prevent the user from being logged out
+        update_session_auth_hash(request, request.user)
+
+        messages.success(request, 'Password changed successfully.')
+        return redirect('emp_view')  # Replace with the actual URL to view the user profile
+
+    return render(request, 'user/change-pass.html')  # Replace 'your_template_name.html' with the actual template name
     
 # -------------------------- PAYROLL VIEWS ------------------------------
 

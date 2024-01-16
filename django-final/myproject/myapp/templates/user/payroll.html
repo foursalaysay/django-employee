@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,13 +45,13 @@
     <div class="page-content">
         <aside class="aside-content">
             <ul class="aside-nav">
-                <a class="aside-nav-items" href="{% url 'payroll' %}">
-                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
+                <a class="aside-nav-items" href="{% url 'view_calculation' %}">
+                    <img class="sidenav-logo" src="{% static 'images/calculator.png' %}" alt="logo">
                     Salary Calculations
                 </a>
 
                 <a class="aside-nav-items" href="{% url 'tax_info' %}">
-                    <img class="sidenav-logo" src="../images/tax.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/tax.png' %}" alt="logo">
                     Tax Information
                 </a>
             </ul>
