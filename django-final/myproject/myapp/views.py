@@ -110,47 +110,49 @@ from django.shortcuts import render, get_object_or_404
 from .models import Employee  # Make sure to import your Employee model
 
 def salary_config(request):
-    # Fetch information from the Employee model based on the inputted username
-    # inputted_username = request.GET.get('username')
-    # employee_instance = get_object_or_404(Employee, username=inputted_username)
+    # Initialize employee_instance before the conditional block
+    employee_instance = None
 
-    # if request.method == 'POST':
-    #     # Extract username and salary from the submitted form data
-    #     username = request.POST.get('username')
-    #     salary = request.POST.get('salary')
+    if request.method == 'POST':
+        # Extract username and salary from the submitted form data
+        username = request.POST.get('username')
+        salary = request.POST.get('salary')
 
-    #     # Retrieve the employee instance based on the provided username
-    #     employee_instance = get_object_or_404(Employee, username=username)
+        # Retrieve the employee instance based on the provided username
+        employee_instance = get_object_or_404(Employee, username=username)
 
-    #     # Update the employee's salary
-    #     employee_instance.salary = salary
+        # Update the employee's salary
+        employee_instance.salary = salary
 
-    #     # Save other input values to the employee instance
-    #     employee_instance.basic_salary = request.POST.get('basic-salary')
-    #     employee_instance.sss = request.POST.get('sss')
-    #     employee_instance.philhealth = request.POST.get('philhealth')
-    #     employee_instance.pagibig = request.POST.get('pagibig')
-    #     employee_instance.total_deduction = request.POST.get('total-deduction')
-    #     employee_instance.net_pay = request.POST.get('net-pay')
+        # Save other input values to the employee instance
+        employee_instance.basic_salary = request.POST.get('basic-salary')
+        employee_instance.sss = request.POST.get('sss')
+        employee_instance.philhealth = request.POST.get('philhealth')
+        employee_instance.pagibig = request.POST.get('pagibig')
+        employee_instance.total_deduction = request.POST.get('total-deduction')
+        employee_instance.net_pay = request.POST.get('net-pay')
 
-    #     # Save the changes
-    #     employee_instance.save()
+        # Save the changes
+        employee_instance.save()
 
-    #     # Now, you can redirect or render another page as needed
-    #     return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
+        # Now, you can redirect or render another page as needed
+        return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
 
     return render(request, 'admin-view/salary-config/salary-config.html', {
-        # 'employee': employee_instance,
+        'employee': employee_instance,
     })
 
 def payment_proc(request):
+    employees = Employee.objects.all()
     return render(request, "admin-view/payment-proc/payment-proc.html", {
         # Return Data
+        'employees' : employees
     })
     
 def reporting(request):
+    employees = Employee.objects.all()
     return render(request, "admin-view/reporting/reporting.html", {
-        
+         'employees' : employees
     })
     
 def system_config(request):
@@ -344,3 +346,19 @@ def download_document(request, document_id):
     response = HttpResponse(document.file, content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{document.file.name}"'
     return response
+
+# DELETE EMPLOYEE
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Employee
+
+def delete_employee(request, username):
+    # Use filter instead of get to handle the case where multiple employees have the same username
+    employees_to_delete = Employee.objects.filter(username=username)
+
+    if employees_to_delete.exists():
+        # Delete each employee in the queryset
+        employees_to_delete.delete()
+        return redirect('admin_view')  # Redirect to some page after deletion
+    else:
+        # Handle the case where no employees with the specified username were found
+        return render(request, '404.html')

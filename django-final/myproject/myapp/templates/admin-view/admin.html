@@ -51,8 +51,9 @@
                         <h1>{{ employee.name }}</h1>
                         <p>{{ employee.address }}</p>
                         <p>{{ employee.contact }}</p>
-                        <button>Delete Employee</button>
-                        <a href="#" onclick="openEditDialog('{{ employee.name }}', '{{ employee.address }}', '{{ employee.contact }}')">View Employee</a>
+                        <hr>
+                        <p>{{ employee.username }}</p>
+                        <a href="{% url 'delete_employee' username=employee.username %}"><button>Delete Employee</button></a>
                     </div>
                 {% endfor %}
             </div>

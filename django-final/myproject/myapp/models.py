@@ -14,7 +14,7 @@ class Employee(AbstractUser):
     user_permissions = models.ManyToManyField('auth.Permission', related_name='employee_permissions', blank=True)
 
     def __str__(self):
-        return f"{self.username} - {self.employee_id}"
+        return f"{self.username}"
 
     @classmethod
     def get_employee_by_username_password(cls, username, password):
@@ -33,11 +33,11 @@ class SalaryInfo(models.Model):
     tax = models.DecimalField(max_digits=20, decimal_places=2)
     total_deduction = models.DecimalField(max_digits=20, decimal_places=2)
     netpay = models.DecimalField(max_digits=20, decimal_places=2)
-    date_saved = models.DateField(default=timezone.now)
+    date_saved = models.DateTimeField(auto_now_add=True)
 
 class Document(models.Model):
     name = models.CharField(max_length=255)
-    file = models.FileField(upload_to='documents/')
+    file = models.FileField(upload_to='documents/')  # 'upload_to' defines the upload directory
 
     def __str__(self):
         return self.name

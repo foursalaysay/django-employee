@@ -4,38 +4,38 @@
 // DECLARE ABSENT SERVES AS MINUS TO THE DAYS WORK
 
 
-function deductionValues(){
+function deductionValues() {
+    // ... (the rest of your JavaScript code)
+    // PROVIDE THE ID OF INPUTTED DATA SALARY FROM ADMIN INPUT
+    var getBasicValue = document.getElementById('salary');
+    var getBasic = parseFloat(getBasicValue.value);
 
-    document.getElementById('calculateBtn').addEventListener('click', function(event) {
-        event.preventDefault()
-    
-    
-      // PROVIDE THE ID OF INPUTTED DATA SALARY FROM ADMIN INPUT
-      var getBasicValue = document.getElementById('salary');
-      var getBasic = getBasicValue.value;
-  
-      let SSS = getBasic * 0.045;
-      let philhealth = getBasic * 0.05;
-      let pagibig = getBasic * 0.02;
+    let SSS = getBasic * 0.045;
+    let philhealth = getBasic * 0.05;
+    let pagibig = getBasic * 0.02;
 
-      let totalDeduction = SSS + philhealth + pagibig;
-      let netPay = getBasic - totalDeduction;
+    let totalDeduction = SSS + philhealth + pagibig;
+    let netPay = getBasic - totalDeduction;
 
     let salaryValue = document.getElementById('basic-salary');
     let SSSValue = document.getElementById('sss');
     let philhealthValue = document.getElementById("philhealth");
     let pagIbigValue = document.getElementById("pagibig");
     let totalDeductionValue = document.getElementById("total-deduction");
-    let netPayValue = document.getElementById("net-pay")
+    let netPayValue = document.getElementById("net-pay");
 
-    salaryValue.textContent = getBasic;
-    SSSValue.textContent = SSS;
-    philhealthValue.textContent = philhealth;
-    pagIbigValue.textContent = pagibig;
-    totalDeductionValue.textContent = totalDeduction.toFixed(2);
-    netPayValue.textContent= netPay.toFixed(2);
-    });
+    salaryValue.value = getBasic.toFixed(2);
+    SSSValue.value = SSS.toFixed(2);
+    philhealthValue.value = philhealth.toFixed(2);
+    pagIbigValue.value = pagibig.toFixed(2);
+    totalDeductionValue.value = totalDeduction.toFixed(2);
+    netPayValue.value = netPay.toFixed(2);
 }
+
+// Set up event listener when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('calculateBtn').addEventListener('click', deductionValues);
+});
 
 
 

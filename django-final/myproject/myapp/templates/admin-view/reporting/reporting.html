@@ -8,6 +8,7 @@
     <title>Admin</title>
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reporting.css' %}">
 </head>
 <body>
     <div class="admin-header">
@@ -50,7 +51,28 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            
+            <h2>Data Display Table</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instance in data_instances %}
+                        <tr>
+                            <td>{{ instance.name }}</td>
+                            <td>{{ instance.email }}</td>
+                            <td>{{ instance.contact }}</td>
+                            <td>{{ instance.address }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
     </div>
 </body>

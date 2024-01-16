@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
     <link rel="stylesheet" href="{% static 'css/salary-config.css' %}">
+    <script src="{% static 'js/calculation.js' %}"></script>
 </head>
 <body>
     <script src="{% static 'js/calculation.js' %}"></script>
@@ -50,17 +51,17 @@
                     <div class="user-info">
                         <label for="username">Employee Username:</label>
                         <input type="text" id="username" name="username" required>
-                        <button type="submit">Search Employee</button>
+                    </div>
+                    <div class="fetch-info">
+                        {% if employee %}
+                            <h3>{{ employee.name }}</h3>
+                            <p>{{ employee.contact }}</p>
+                            <p>{{ employee.address }}</p>
+                        {% endif %}
                     </div>
                 </form>
                 
-                <div class="fetch-info">
-                    {% if employee %}
-                        <h3>{{ employee.name }}</h3>
-                        <p>{{ employee.contact }}</p>
-                        <p>{{ employee.address }}</p>
-                    {% endif %}
-                </div>
+                
                 
                 <form action="{% url 'salary_config' %}" method="post" id="salaryForm">
                     {% csrf_token %}

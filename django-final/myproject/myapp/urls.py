@@ -36,7 +36,8 @@ urlpatterns = [
     path('search-employee/', views.search_employee, name='search_employee'),
     path('404', views.return_404, name='return_404' ),
     
-     path('upload/', views.upload_document, name='upload_document'),
+    path('upload/', views.upload_document, name='upload_document'),
     path('download/<int:document_id>/', views.download_document, name='download_document'),
+    path('delete-employee/<str:username>/', views.delete_employee, name='delete_employee'),
     
 ]
