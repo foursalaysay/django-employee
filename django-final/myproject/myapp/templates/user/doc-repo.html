@@ -15,8 +15,17 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/doc-repo.css' %}">
+   
 </head>
 <body>
+    <script>
+        // Display the selected file name when a file is chosen
+        document.getElementById('fileInput').addEventListener('change', function () {
+            var selectedFileName = this.value.split('\\').pop();
+            document.getElementById('selectedFileName').innerText = selectedFileName;
+        });
+    </script>
     <nav>
         <div class="navbar-image">
             <img src="" alt="">
@@ -68,7 +77,34 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            
+            <h2>Upload Document</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Hidden file input -->
+                <input type="file" name="file" id="fileInput" style="display: none;" />
+                
+                <!-- Visible button to trigger file input -->
+                <button type="button" onclick="document.getElementById('fileInput').click();">
+                    Choose File
+                </button>
+                
+                <!-- Display selected file name (optional) -->
+                <span id="selectedFileName"></span>
+                
+                <button type="submit">Upload</button>
+            </form>
+        
+            <div class="document-list">
+                <h2>Document List</h2>
+            </hr >
+                {% for document in documents %}
+                    <p>
+                        {{ document.name }}
+                        <a href="{% url 'download_document' document.id %}" download>Download</a>
+                    </p>
+                {% endfor %}
+            </div>
         </section>
     </div>
 </body>

@@ -12,7 +12,7 @@ from django.contrib import messages
 
 from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import render, redirect
-
+from django.http import HttpResponse
 
 # Create your views here.
 from django.shortcuts import render, redirect
@@ -111,36 +111,36 @@ from .models import Employee  # Make sure to import your Employee model
 
 def salary_config(request):
     # Fetch information from the Employee model based on the inputted username
-    inputted_username = request.GET.get('username')
-    employee_instance = get_object_or_404(Employee, username=inputted_username)
+    # inputted_username = request.GET.get('username')
+    # employee_instance = get_object_or_404(Employee, username=inputted_username)
 
-    if request.method == 'POST':
-        # Extract username and salary from the submitted form data
-        username = request.POST.get('username')
-        salary = request.POST.get('salary')
+    # if request.method == 'POST':
+    #     # Extract username and salary from the submitted form data
+    #     username = request.POST.get('username')
+    #     salary = request.POST.get('salary')
 
-        # Retrieve the employee instance based on the provided username
-        employee_instance = get_object_or_404(Employee, username=username)
+    #     # Retrieve the employee instance based on the provided username
+    #     employee_instance = get_object_or_404(Employee, username=username)
 
-        # Update the employee's salary
-        employee_instance.salary = salary
+    #     # Update the employee's salary
+    #     employee_instance.salary = salary
 
-        # Save other input values to the employee instance
-        employee_instance.basic_salary = request.POST.get('basic-salary')
-        employee_instance.sss = request.POST.get('sss')
-        employee_instance.philhealth = request.POST.get('philhealth')
-        employee_instance.pagibig = request.POST.get('pagibig')
-        employee_instance.total_deduction = request.POST.get('total-deduction')
-        employee_instance.net_pay = request.POST.get('net-pay')
+    #     # Save other input values to the employee instance
+    #     employee_instance.basic_salary = request.POST.get('basic-salary')
+    #     employee_instance.sss = request.POST.get('sss')
+    #     employee_instance.philhealth = request.POST.get('philhealth')
+    #     employee_instance.pagibig = request.POST.get('pagibig')
+    #     employee_instance.total_deduction = request.POST.get('total-deduction')
+    #     employee_instance.net_pay = request.POST.get('net-pay')
 
-        # Save the changes
-        employee_instance.save()
+    #     # Save the changes
+    #     employee_instance.save()
 
-        # Now, you can redirect or render another page as needed
-        return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
+    #     # Now, you can redirect or render another page as needed
+    #     return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
 
     return render(request, 'admin-view/salary-config/salary-config.html', {
-        'employee': employee_instance,
+        # 'employee': employee_instance,
     })
 
 def payment_proc(request):
@@ -309,3 +309,38 @@ def change_password_view(request):
             messages.error(request, 'Current password is incorrect.')
 
     return render(request, 'your_template.html')  # Replace 'your_template.html' with your actual template
+
+
+def search_employee(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        employee = get_object_or_404(Employee, username=username)
+        return render(request, 'admin-view/salary-config/salary-config.html', {'employee': employee})
+
+    return HttpResponse("Invalid Request")
+
+
+def return_404(request):
+    return render(request, '404.html')
+
+# DOCUMENT REPOSITORY
+from .models import Document
+from .forms import DocumentForm
+
+def upload_document(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('upload_document')
+    else:
+        form = DocumentForm()
+
+    documents = Document.objects.all()
+    return render(request, 'upload_document.html', {'form': form, 'documents': documents})
+
+def download_document(request, document_id):
+    document = Document.objects.get(id=document_id)
+    response = HttpResponse(document.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{document.file.name}"'
+    return response

@@ -20,40 +20,51 @@
         <aside class="aside-content">
             <ul class="aside-nav">
                 <a class="aside-nav-items" href="{% url 'admin_view' %}">
-                    <img class="sidenav-logo" src="../images/salary.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
                     Dashboard
                 </a>
                 <a class="aside-nav-items" href="{% url 'salary_config' %}">
-                    <img class="sidenav-logo" src="../images/bank-check.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
                     Salary Configuration
                 </a>
                 <a class="aside-nav-items" href="{% url 'payment_proc' %}">
-                    <img class="sidenav-logo" src="../images/calculator.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/calculator.png' %}" alt="logo">
                     Payment Processing
                 </a>
                 <a class="aside-nav-items" href="{% url 'reporting' %}">
-                    <img class="sidenav-logo" src="../images/report.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/report.png' %}" alt="logo">
                     Reporting
                 </a>
                 <a class="aside-nav-items" href="{% url 'system_config' %}">
-                    <img class="sidenav-logo" src="../images/system.png" alt="logo">
+                    <img class="sidenav-logo" src="{% static 'images/system.png' %}" alt="logo">
                     System Configuration
                 </a>
             </ul>
         </aside>
+        
         <section class="admin-content">
             <div class="salary-config">
                 <h1>Define Salary Components</h1>
-                <form action="" method="post" id="basicSalForm">
+                <form action="{% url 'search_employee' %}" method="post" id="basicSalForm">
                     {% csrf_token %}
                     <div class="user-info">
-                        <div class="fetch-info">
-                            <h3>{{ employee.name }}</h3>
-                            <p>{{ employee.contact }}</p>
-                            <p>{{ employee.address }}</p>
-                        </div>
                         <label for="username">Employee Username:</label>
                         <input type="text" id="username" name="username" required>
+                        <button type="submit">Search Employee</button>
+                    </div>
+                </form>
+                
+                <div class="fetch-info">
+                    {% if employee %}
+                        <h3>{{ employee.name }}</h3>
+                        <p>{{ employee.contact }}</p>
+                        <p>{{ employee.address }}</p>
+                    {% endif %}
+                </div>
+                
+                <form action="{% url 'salary_config' %}" method="post" id="salaryForm">
+                    {% csrf_token %}
+                    <div class="user-info">
                         <label for="salary">Set Employee Basic Salary:</label>
                         <input type="text" id="salary" name="salary" required>
                         <hr>
@@ -84,8 +95,9 @@
                             </div>
                         </div>
                     </div>
-                    <button id="calculateBtn" onclick="deductionValues()">Calculate</button>
+                    <button id="calculateBtn" type="button" onclick="deductionValues()">Calculate</button>
                 </form>
+                
                 
             </div>
         </section>

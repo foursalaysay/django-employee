@@ -1,0 +1,57 @@
+/* static/css/styles.css */
+
+.dashboard-content {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="file"],
+button {
+    margin: 10px 0;
+    height: 40px;
+    width: 250px;
+    background-color: rgb(56, 252, 56);
+    border: none;
+    align-self: left;
+}
+
+#selectedFileName {
+    margin-bottom: 10px;
+}
+
+.document-list {
+    margin-top: 20px;
+}
+
+p {
+    margin: 8px 0;
+}
+
+a {
+    color: #4caf50;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

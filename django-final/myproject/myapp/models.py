@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
 
 class Employee(AbstractUser):
     name = models.CharField(max_length=255)
@@ -31,11 +33,14 @@ class SalaryInfo(models.Model):
     tax = models.DecimalField(max_digits=20, decimal_places=2)
     total_deduction = models.DecimalField(max_digits=20, decimal_places=2)
     netpay = models.DecimalField(max_digits=20, decimal_places=2)
-    month = models.CharField(max_length=100)
+    date_saved = models.DateField(default=timezone.now)
 
 class Document(models.Model):
-    title = models.CharField(max_length=255)
-    file = models.FileField(upload_to='documents/')  # 'upload_to' defines the upload directory
+    name = models.CharField(max_length=255)
+    file = models.FileField(upload_to='documents/')
 
     def __str__(self):
-        return self.title
+        return self.name
+    
+    
+    
