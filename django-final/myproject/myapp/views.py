@@ -1,6 +1,7 @@
 from django.db import IntegrityError
 from django.shortcuts import render
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -44,6 +45,7 @@ def user_login(request):
                     # Log in the first user that matches the password
                     auth_login(request, user)
                     request.session['logged_in_user'] = username
+                    request.session['username'] = username
                     return redirect('emp_view')
 
         # Authentication failed, display an error message
@@ -178,37 +180,58 @@ def system_config(request):
 # <----------------------- EMPLOYEE VIEWS HERE ------------------------->
 # -------------------------------------------------------------------------
 # -------------------------- DASHBOARD VIEWS ------------------------------
+
 def emp_view(request):
-    return render(request, 'user/user.html')
-    # employee = Employee.get_employee_by_username_password(username, password)
-    
-    # if employee:
-    #     salary_info = SalaryInfo.get_salary_info_by_employee_id(employee_id)
-        
-    #     if salary_info:
-    #         # Do something with the retrieved salary_info
-    #         return render(request, 'user.html', {'salary_info': salary_info})
-    #     else:
-    #         # Handle the case when no salary info is found for the given employee_id
-    #         return render(request, 'no_salary_info.html', {'employee_id': employee_id})
-    # else:
-    #     # Handle the case when no employee is found for the given credentials
-    #     return render(request, 'user/user.html')
+    # Get the username from the session
+    username = request.session.get('username')
+    request.session['username'] = username
+
+    # Check if the username is present in the session
+    if username:
+        # Filter salaries based on the username
+        salaries = SalaryInfo.objects.filter(username=username)
+        return render(request, 'user/user.html', {'salaries': salaries})
+    else:
+        # Handle the case where the username is not in the session
+        return render(request, 'user/user.html', {'error_message': 'Username not found in session'})
 
     
 def user_stub(request):
+    username = request.session.get('username')
+    request.session['username'] = username
     return render(request, "user/user-stub.html", {
         
     })
+    
+
 
 def doc_repo(request):
-    return render(request, "user/doc-repo.html", {
+    if request.method == 'POST' and 'file' in request.FILES:
+        uploaded_file = request.FILES['file']
+
+        # Get the username from the session (assuming 'username' is stored in the session)
+        username = request.session.get('username')
+        request.session['username'] = username
+
+        # Create and save a new Document instance in the database
+        document = Document(file=uploaded_file)
+        document.save()
         
-    })
+        get_doc = Document.objects.all()
+        context = {
+            'get_doc' : get_doc
+        }
+
+        HttpResponse(f'Successfully uploaded {uploaded_file.name}')
+        return redirect('doc_repo', context)
+
+    return render(request, 'user/doc-repo.html')
     
 # -------------------------- PROFILE MANAGEMENT VIEWS ------------------------------
 
 def update_info(request):
+    username = request.session.get('username')
+    request.session['username'] = username
     if request.method == 'POST':
         # Retrieve user input from the form
         new_email = request.POST.get('email')
@@ -220,8 +243,8 @@ def update_info(request):
 
         # Get the user (Employee) instance using the username
         try:
-            employee = User.objects.get(username=username)
-        except User.DoesNotExist:
+            employee = Employee.objects.get(username=username)
+        except Employee.DoesNotExist:
             # Handle the case where the user is not found
             messages.error(request, 'User not found.')
             return redirect('emp_view')  # Redirect to the appropriate view
@@ -238,6 +261,8 @@ def update_info(request):
     return render(request, 'user/profile-management.html') # Replace 'your_template_name.html' with the actual template name
     
 def change_pass(request):
+    username = request.session.get('username')
+    request.session['username'] = username
     if request.method == 'POST':
         current_password = request.POST.get('current_password')
         new_password = request.POST.get('new_password')
@@ -268,39 +293,51 @@ def change_pass(request):
 # -------------------------- PAYROLL VIEWS ------------------------------
 
 def view_calculation(request):
-    username = request.session.get('username', None)
+    username = request.session.get('username')
+    request.session['username'] = username# Replace 'username' with the key you use in your session
+
+    try:
+        # Get the employee associated with the username
+        username = Employee.objects.get(username=username)
+    except Employee.DoesNotExist:
+        # Handle the case where no Employee is found
+        return render(request, 'user/tax-info.html')
+
+    # Filter SalaryInfo objects based on the associated employee
+    salary_info_list = SalaryInfo.objects.filter(username=username)
+        
+    return render(request, 'user/payroll.html', {
+        'salary_info_list':salary_info_list
+    })
+
+    
+
+def tax_info(request):
+    username = request.session.get('username')
+    request.session['username'] = username
+
+    # Define context with a default value
 
     # Check if the username is available in the session
     if username is not None:
         # Fetch only the necessary fields from the SalaryInfo model for the specific user
-        salary_data = SalaryInfo.objects.filter(employee__username=username).values('tax', 'date_saved')
+        salary_data = SalaryInfo.objects.filter(username=username)
         
-        context = {
-            'salary_data': salary_data
-        }
-
-
-    return render(request, 'user/payroll.html', {'employee': context})
+        # Assign the fetched data to the context
+        
+            
     
-def tax_info(request):
-    username = request.session.get('username')  # Replace 'username' with the key you use in your session
 
-    # Get the employee associated with the username
-    user = User.objects.get(username=username)
-    employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
-
-    # Filter SalaryInfo objects based on the associated employee
-    salary_info_list = SalaryInfo.objects.filter(employee=employee)
-
-    return render(request, 'user/tax-info.html', {'salary_info_list': salary_info_list})
+    return render(request, 'user/tax-info.html', {'salary_data': salary_data})
     
 # -------------------------- REPORT VIEWS ------------------------------
 
 def user_report(request):
-    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+    username = request.session.get('username')
+    request.session['username'] = username# Replace 'username' with the key you use in your session
 
     # Get the employee associated with the username
-    user = User.objects.get(username=username)
+    user = Employee.objects.get(username=username)
     employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
 
     # Filter SalaryInfo objects based on the associated employee
@@ -310,10 +347,11 @@ def user_report(request):
     })
     
 def tax_report(request):
-    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+    username = request.session.get('username')
+    request.session['username'] = username # Replace 'username' with the key you use in your session
 
     # Get the employee associated with the username
-    user = User.objects.get(username=username)
+    user = Employee.objects.get(username=username)
     employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
 
     # Filter SalaryInfo objects based on the associated employee
@@ -323,10 +361,11 @@ def tax_report(request):
     })
     
 def financial_sum(request):
-    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+    username = request.session.get('username')
+    request.session['username'] = username# Replace 'username' with the key you use in your session
 
     # Get the employee associated with the username
-    user = User.objects.get(username=username)
+    user = Employee.objects.get(username=username)
     employee = user.employee  # Assuming you have a OneToOneField relationship between User and Employee
 
     # Filter SalaryInfo objects based on the associated employee

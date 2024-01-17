@@ -32,8 +32,11 @@
             <li>
                 <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
-            <li>
+            {% comment %} <li>
                 <a href="{% url 'user_report' %}">Report</a>
+            </li> {% endcomment %}
+            <li>
+                <a href="{% url 'user_login' %}">Logout</a>
             </li>
         </ul>
     </nav>
@@ -52,10 +55,10 @@
                     <img class="sidenav-logo" src="{% static 'images/update-info.png' %}" alt="logo">
                     Update Information
                 </a>
-                <a class="aside-nav-items" href="{% url 'change_pass' %}">
+                {% comment %} <a class="aside-nav-items" href="{% url 'change_pass' %}">
                     <img class="sidenav-logo" src="{% static 'images/password.png' %}" alt="logo">
                     Change Password
-                </a>
+                </a> {% endcomment %}
             </ul>
         </aside>
         <section class="dashboard-content">

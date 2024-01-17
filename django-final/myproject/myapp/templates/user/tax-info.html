@@ -31,8 +31,11 @@
             <li>
                 <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
-            <li>
+            {% comment %} <li>
                 <a href="{% url 'user_report' %}">Report</a>
+            </li> {% endcomment %}
+            <li>
+                <a href="{% url 'user_login' %}">Logout</a>
             </li>
         </ul>
     </nav>
@@ -59,19 +62,25 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            <h1>Tax and Date Saved View</h1>
-            <table>
-                <tr>
-                    <th>Tax</th>
-                    <th>Date Saved</th>
-                </tr>
-                {% for entry in salary_data %}
-                <tr>
-                    <td>{{ entry.tax }}</td>
-                    <td>{{ entry.date_saved }}</td>
-                </tr>
-                {% endfor %}
-            </table>
+            <h1>Tax Information</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in salary_data %}
+                            <tr>
+                                <td>{{ data.tax }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+            {% if error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
         </section>
     </div>
 </body>

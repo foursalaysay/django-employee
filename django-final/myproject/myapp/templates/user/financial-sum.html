@@ -31,8 +31,11 @@
             <li>
                 <a href="{% url 'view_calculation' %}">Payroll</a>
             </li>
-            <li>
+            {% comment %} <li>
                 <a href="{% url 'user_report' %}">Report</a>
+            </li> {% endcomment %}
+            <li>
+                <a href="{% url 'user_login' %}">Logout</a>
             </li>
         </ul>
     </nav>

@@ -34,7 +34,7 @@
                     <a href="{% url 'view_calculation' %}">Payroll</a>
                 </li>
                 <li>
-                    <a href="{% url 'user_report' %}">Report</a>
+                    <a href="{% url 'user_login' %}">Logout</a>
                 </li>
             </ul>
     </nav>
@@ -71,29 +71,36 @@
     </aside>
     <div class="dashboard-content">
         <!-- ... -->
-        <h1>Salary Details for {{ user_salary_data.user.username }}</h1>
-        <table>
+        <h2>Salary Table</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Basic Salary</th>
+            <th>SSS</th>
+            <th>Philhealth</th>
+            <th>Pagibig</th>
+            <th>Tax</th>
+            <th>Total Deduction</th>
+            <th>Netpay</th>
+            <th>Date Saved</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for salary in salaries %}
             <tr>
-                <th>Basic Salary</th>
-                <th>SSS</th>
-                <th>Philhealth</th>
-                <th>Pagibig</th>
-                <th>Tax</th>
-                <th>Total Deduction</th>
-                <th>Net Pay</th>
-                <th>Date Saved</th>
+                <td>{{ salary.basic_salary }}</td>
+                <td>{{ salary.sss }}</td>
+                <td>{{ salary.philhealth }}</td>
+                <td>{{ salary.pagibig }}</td>
+                <td>{{ salary.tax }}</td>
+                <td>{{ salary.total_deduction }}</td>
+                <td>{{ salary.netpay }}</td>
+                <td>{{ salary.date_saved }}</td>
             </tr>
-            <tr>
-                <td>{{ user_salary_data.basic_salary }}</td>
-                <td>{{ user_salary_data.sss }}</td>
-                <td>{{ user_salary_data.philhealth }}</td>
-                <td>{{ user_salary_data.pagibig }}</td>
-                <td>{{ user_salary_data.tax }}</td>
-                <td>{{ user_salary_data.total_deduction }}</td>
-                <td>{{ user_salary_data.netpay }}</td>
-                <td>{{ user_salary_data.date_saved }}</td>
-            </tr>
-        </table>
+        {% endfor %}
+    </tbody>
+</table>
         
     </div>
 </div>
