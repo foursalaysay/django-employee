@@ -119,7 +119,7 @@ def salary_config(request):
         username = request.POST.get('username')
 
         # Get the employee associated with the username
-        employee = Employee.objects.get(username=username)
+        
 
         # Perform direct calculations without using functions
         basic_salary = salary * 0.8  # Replace with your actual calculation logic
@@ -131,7 +131,7 @@ def salary_config(request):
 
         # Save data to the database
         salary_info = SalaryInfo.objects.create(
-            employee=employee,
+            username=username,
             basic_salary=basic_salary,
             sss=sss,
             philhealth=philhealth,

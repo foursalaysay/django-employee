@@ -63,16 +63,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for instance in data_instances %}
+                    {% for employee in employees %}
                         <tr>
-                            <td>{{ instance.name }}</td>
-                            <td>{{ instance.email }}</td>
-                            <td>{{ instance.contact }}</td>
-                            <td>{{ instance.address }}</td>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.email }}</td>
+                            <td>{{ employee.contact }}</td>
+                            <td>{{ employee.address }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
+            </table>            
         </section>
     </div>
 </body>
