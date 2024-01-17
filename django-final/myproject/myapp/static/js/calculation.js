@@ -10,6 +10,7 @@ function deductionValues() {
     var getBasicValue = document.getElementById('salary');
     var getBasic = parseFloat(getBasicValue.value);
 
+    // Your existing calculations
     let SSS = getBasic * 0.045;
     let philhealth = getBasic * 0.05;
     let pagibig = getBasic * 0.02;
@@ -17,27 +18,26 @@ function deductionValues() {
     let totalDeduction = SSS + philhealth + pagibig;
     let netPay = getBasic - totalDeduction;
 
-    let salaryValue = document.getElementById('basic-salary');
-    let SSSValue = document.getElementById('sss');
-    let philhealthValue = document.getElementById("philhealth");
-    let pagIbigValue = document.getElementById("pagibig");
-    let totalDeductionValue = document.getElementById("total-deduction");
-    let netPayValue = document.getElementById("net-pay");
+    // Set the calculated values in the corresponding input fields
+    document.getElementById('basic-salary').value = calculateBasicSalary(getBasic).toFixed(2);
+    document.getElementById('sss').value = SSS.toFixed(2);
+    document.getElementById('philhealth').value = philhealth.toFixed(2);
+    document.getElementById('pagibig').value = pagibig.toFixed(2);
+    document.getElementById('total-deduction').value = totalDeduction.toFixed(2);
+    document.getElementById('net-pay').value = netPay.toFixed(2);
+}
 
-    salaryValue.value = getBasic.toFixed(2);
-    SSSValue.value = SSS.toFixed(2);
-    philhealthValue.value = philhealth.toFixed(2);
-    pagIbigValue.value = pagibig.toFixed(2);
-    totalDeductionValue.value = totalDeduction.toFixed(2);
-    netPayValue.value = netPay.toFixed(2);
+// Function to calculate basic salary
+function calculateBasicSalary(salary) {
+    // Implement your calculation logic for basic salary
+    // Example: 80% of the input salary
+    return salary * 0.8;
 }
 
 // Set up event listener when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('calculateBtn').addEventListener('click', deductionValues);
 });
-
-
 
 // PUT THIS ONCHANGE ON INPUT OF ABSENT
 function getValue() {

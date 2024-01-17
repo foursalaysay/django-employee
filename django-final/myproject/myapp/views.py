@@ -110,38 +110,50 @@ def admin_view(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Employee  # Make sure to import your Employee model
 
+
+
 def salary_config(request):
-    # Initialize employee_instance before the conditional block
-    employee_instance = None
-
     if request.method == 'POST':
-        # Extract username and salary from the submitted form data
+        # Retrieve data from the form
+        salary = float(request.POST.get('salary'))
         username = request.POST.get('username')
-        salary = request.POST.get('salary')
 
-        # Retrieve the employee instance based on the provided username
-        employee_instance = get_object_or_404(Employee, username=username)
+        # Get the username from the session
 
-        # Update the employee's salary
-        employee_instance.salary = salary
+        # Get the employee associated with the username
+        # Perform direct calculations without using functions
+        basic_salary = salary * 0.8  # Replace with your actual calculation logic
+        sss = basic_salary * 0.045  # Replace with your actual calculation logic
+        philhealth = basic_salary * 0.05  # Replace with your actual calculation logic
+        pagibig = basic_salary * 0.02  # Replace with your actual calculation logic
+        total_deduction = sss + philhealth + pagibig
+        net_pay = basic_salary - total_deduction
 
-        # Save other input values to the employee instance
-        employee_instance.basic_salary = request.POST.get('basic-salary')
-        employee_instance.sss = request.POST.get('sss')
-        employee_instance.philhealth = request.POST.get('philhealth')
-        employee_instance.pagibig = request.POST.get('pagibig')
-        employee_instance.total_deduction = request.POST.get('total-deduction')
-        employee_instance.net_pay = request.POST.get('net-pay')
+        # Save data to the database
+        salary_info = SalaryInfo.objects.create(
+            basic_salary=basic_salary,
+            sss=sss,
+            philhealth=philhealth,
+            pagibig=pagibig,
+            total_deduction=total_deduction,
+            tax=1000,
+            netpay=net_pay,
+            employee=username,  # Save the username to the table
+            date_saved=timezone.now()
+        )
 
-        # Save the changes
-        employee_instance.save()
+        messages.success(request, 'Salary configuration saved successfully!')
+        return render(request, 'admin-view/salary-config/salary-config.html', {
+            'basic_salary': basic_salary,
+            'sss': sss,
+            'philhealth': philhealth,
+            'pagibig': pagibig,
+            'total_deduction': total_deduction,
+            'net_pay': net_pay,
+            'salary_info' : salary_info
+        })
 
-        # Now, you can redirect or render another page as needed
-        return render(request, 'admin-view/salary-config/salary-config.html', {'message': 'Salary updated successfully'})
-
-    return render(request, 'admin-view/salary-config/salary-config.html', {
-        'employee': employee_instance,
-    })
+    return render(request, 'admin-view/salary-config/salary-config.html')
 
 def payment_proc(request):
     employees = Employee.objects.all()
@@ -255,12 +267,19 @@ def change_pass(request):
 # -------------------------- PAYROLL VIEWS ------------------------------
 
 def view_calculation(request):
-    username = request.session.get('username')  # Replace 'username' with the key you use in your session
+    username = request.session.get('username', None)
 
-    # Get the employee instance based on the username
-    employee = get_object_or_404(Employee, user__username=username)
+    # Check if the username is available in the session
+    if username is not None:
+        # Fetch only the necessary fields from the SalaryInfo model for the specific user
+        salary_data = SalaryInfo.objects.filter(employee__username=username).values('tax', 'date_saved')
+        
+        context = {
+            'salary_data': salary_data
+        }
 
-    return render(request, 'user/payroll.html', {'employee': employee})
+
+    return render(request, 'user/payroll.html', {'employee': context})
     
 def tax_info(request):
     username = request.session.get('username')  # Replace 'username' with the key you use in your session

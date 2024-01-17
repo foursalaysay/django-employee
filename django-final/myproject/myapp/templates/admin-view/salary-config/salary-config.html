@@ -72,31 +72,31 @@
                         <div class="computation-value">
                             <div class="computation">
                                 <label for="basic-salary">Basic Salary:</label>
-                                <input type="text" id="basic-salary" name="basic-salary" readonly>
+                                <input type="text" id="basic-salary" name="basic-salary" value="{{ basic_salary|default:'' }}" >
                             </div>
                             <div class="computation">
                                 <label for="sss">SSS:</label>
-                                <input type="text" id="sss" name="sss" readonly>
+                                <input type="text" id="sss" name="sss" value="{{ sss|default:'' }}" >
                             </div>
                             <div class="computation">
                                 <label for="philhealth">PhilHealth:</label>
-                                <input type="text" id="philhealth" name="philhealth" readonly>
+                                <input type="text" id="philhealth" name="philhealth" value="{{ philhealth|default:'' }}" >
                             </div>
                             <div class="computation">
                                 <label for="pagibig">PAGIBIG:</label>
-                                <input type="text" id="pagibig" name="pagibig" readonly>
+                                <input type="text" id="pagibig" name="pagibig" value="{{ pagibig|default:'' }}" >
                             </div>
                             <div class="computation">
                                 <label for="total-deduction">Total Deductions:</label>
-                                <input type="text" id="total-deduction" name="total-deduction" readonly>
+                                <input type="text" id="total-deduction" name="total-deduction" value="{{ total_deduction|default:'' }}" >
                             </div>
                             <div class="computation">
                                 <label for="net-pay">Net Pay:</label>
-                                <input type="text" id="net-pay" name="net-pay" readonly>
+                                <input type="text" id="net-pay" name="net-pay" value="{{ net_pay|default:'' }}">
                             </div>
                         </div>
                     </div>
-                    <button id="calculateBtn" type="button" onclick="deductionValues()">Calculate</button>
+                    <button id="calculateBtn" type="submit" onclick="deductionValues()">Calculate</button>
                 </form>
                 
                 

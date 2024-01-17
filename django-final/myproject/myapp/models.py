@@ -25,12 +25,12 @@ class Employee(AbstractUser):
             return None
 
 class SalaryInfo(models.Model):
-    username = models.OneToOneField(Employee, on_delete=models.CASCADE, primary_key=True)
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE, primary_key=True)
     basic_salary = models.DecimalField(max_digits=20, decimal_places=2)
     sss = models.DecimalField(max_digits=20, decimal_places=2)
     philhealth = models.DecimalField(max_digits=20, decimal_places=2)
     pagibig = models.DecimalField(max_digits=20, decimal_places=2)
-    tax = models.DecimalField(max_digits=20, decimal_places=2)
+    tax = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     total_deduction = models.DecimalField(max_digits=20, decimal_places=2)
     netpay = models.DecimalField(max_digits=20, decimal_places=2)
     date_saved = models.DateTimeField(auto_now_add=True)
