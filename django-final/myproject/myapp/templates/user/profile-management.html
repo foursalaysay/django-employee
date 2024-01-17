@@ -39,6 +39,7 @@
                 <a href="{% url 'user_login' %}">Logout</a>
             </li>
         </ul>
+        
     </nav>
 
     <!-- DIMENSION OF NAVBAR ABOVE -->
@@ -60,6 +61,23 @@
                     Change Password
                 </a> {% endcomment %}
             </ul>
+            <div class="profile-container">
+                <h1>User Profile</h1>
+            
+                <div class="profile-info">
+                    <label for="name">Name:</label>
+                    <p>{{ get_info.name }}</p>
+            
+                    <label for="email">Email:</label>
+                    <p>{{ get_info.email }}</p>
+            
+                    <label for="contact">Contact:</label>
+                    <p>{{ get_info.contact }}</p>
+            
+                    <label for="address">Address:</label>
+                    <p>{{ get_info.address }}</p>
+                </div>
+            </div>
         </aside>
         <section class="dashboard-content">
             <form action="{% url 'update_info' %}" method="post">
@@ -67,14 +85,15 @@
                 <div class="update-container">
                     <h2 class="title">Update Profile Information</h2>
                     <label for="email">Change Email:</label>
-                    <input type="text" name="email">
+                    <input type="text" name="email"  value="{{ get_info.email }}" required>
                     <label for="contact">Update Contact Number:</label>
-                    <input type="text" name="contact">
+                    <input type="text" name="contact" value="{{ get_info.contact }}" required>
                     <label for="address">Change Address:</label>
-                    <input type="text" name="address">
+                    <input type="text" name="address"   value="{{ get_info.address }}" required>
                     <button type="submit">Update Information</button>
                 </div>
             </form>
+            
         </section>
     </div>
 </body>

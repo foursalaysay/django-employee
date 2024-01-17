@@ -232,6 +232,9 @@ def doc_repo(request):
 def update_info(request):
     username = request.session.get('username')
     request.session['username'] = username
+    
+    get_info = Employee.objects.get(username=username)
+    
     if request.method == 'POST':
         # Retrieve user input from the form
         new_email = request.POST.get('email')
@@ -247,7 +250,7 @@ def update_info(request):
         except Employee.DoesNotExist:
             # Handle the case where the user is not found
             messages.error(request, 'User not found.')
-            return redirect('emp_view')  # Redirect to the appropriate view
+            return redirect('update_info')  # Redirect to the appropriate view
 
         # Update the profile information
         employee.email = new_email
@@ -256,9 +259,11 @@ def update_info(request):
         employee.save()
 
         messages.success(request, 'Profile information updated successfully!')
-        return redirect('emp_view')  # Replace with the actual URL to view the user profile
+        return redirect('update_info')  # Replace with the actual URL to view the user profile
 
-    return render(request, 'user/profile-management.html') # Replace 'your_template_name.html' with the actual template name
+    return render(request, 'user/profile-management.html', {
+            'get_info' : get_info
+        }) # Replace 'your_template_name.html' with the actual template name
     
 def change_pass(request):
     username = request.session.get('username')
