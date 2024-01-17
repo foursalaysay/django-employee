@@ -46,7 +46,7 @@
         <section class="admin-content">
             <div class="salary-config">
                 <h1>Define Salary Components</h1>
-                <form action="{% url 'search_employee' %}" method="post" id="basicSalForm">
+                <form action="{% url 'salary_config' %}" method="post" id="basicSalForm">
                     {% csrf_token %}
                     <div class="user-info">
                         <label for="username">Employee Username:</label>

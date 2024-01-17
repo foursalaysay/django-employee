@@ -118,9 +118,9 @@ def salary_config(request):
         salary = float(request.POST.get('salary'))
         username = request.POST.get('username')
 
-        # Get the username from the session
-
         # Get the employee associated with the username
+        employee = Employee.objects.get(username=username)
+
         # Perform direct calculations without using functions
         basic_salary = salary * 0.8  # Replace with your actual calculation logic
         sss = basic_salary * 0.045  # Replace with your actual calculation logic
@@ -130,9 +130,8 @@ def salary_config(request):
         net_pay = basic_salary - total_deduction
 
         # Save data to the database
-        
-
         salary_info = SalaryInfo.objects.create(
+            employee=employee,
             basic_salary=basic_salary,
             sss=sss,
             philhealth=philhealth,
@@ -140,11 +139,8 @@ def salary_config(request):
             total_deduction=total_deduction,
             tax=1000,
             netpay=net_pay,
-            username=username,
             date_saved=timezone.now()
         )
-        
-        salary_info.save()
 
         messages.success(request, 'Salary configuration saved successfully!')
         return render(request, 'admin-view/salary-config/salary-config.html', {
@@ -158,6 +154,7 @@ def salary_config(request):
         })
 
     return render(request, 'admin-view/salary-config/salary-config.html')
+
 
 def payment_proc(request):
     employees = Employee.objects.all()
