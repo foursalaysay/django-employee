@@ -15,7 +15,7 @@
     <script src="{% static 'js/calculation.js' %}"></script>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
-        <a href="{% url 'user_login ' %}">Logout</a>
+        <a href="{% url 'user_login' %}">Logout</a>
     </div>
     <div class="page-content">
         <aside class="aside-content">
@@ -42,6 +42,7 @@
         <section class="admin-content">
             <div class="salary-config">
                 <h1>Define Salary Components</h1>
+                <hr>
                 <form action="{% url 'salary_config' %}" method="post" id="basicSalForm">
                     {% csrf_token %}
                     
@@ -59,40 +60,51 @@
                 <form action="{% url 'salary_config' %}" method="post" id="salaryForm">
                     {% csrf_token %}
                     <div class="user-info">
-                        <div class="user-info">
+                        <div class="user-employee">
                             <label for="username">Employee Username:</label>
                             <input type="text" id="username" name="username" required>
                         </div>
-                        <label for="salary">Set Employee Basic Salary:</label>
-                        <input type="text" id="salary" name="salary" required>
+                        <div class="user-employee">
+                            <label for="employmentType">Select Employment Type:</label>
+                            <select id="employmentType" name="employmentType">
+                                <option value="regular">Regular</option>
+                                <option value="contractual">Contractual</option>
+                                <option value="parttime">Part-Time</option>
+                            </select>
+                        </div>
                         <hr>
                         <div class="computation-value">
                             <div class="computation">
                                 <label for="basic-salary">Basic Salary:</label>
-                                <input type="text" id="basic-salary" name="basic-salary" value="{{ basic_salary|default:'' }}" >
+                                <input type="text" id="basic-salary" name="basic-salary" value="{{ basic_salary|default:'' }}" readonly >
                             </div>
                             <div class="computation">
                                 <label for="sss">SSS:</label>
-                                <input type="text" id="sss" name="sss" value="{{ sss|default:'' }}" >
+                                <input type="text" id="sss" name="sss" value="{{ sss|default:'' }}" readonly >
                             </div>
                             <div class="computation">
                                 <label for="philhealth">PhilHealth:</label>
-                                <input type="text" id="philhealth" name="philhealth" value="{{ philhealth|default:'' }}" >
+                                <input type="text" id="philhealth" name="philhealth" value="{{ philhealth|default:'' }}"  readonly>
                             </div>
                             <div class="computation">
                                 <label for="pagibig">PAGIBIG:</label>
-                                <input type="text" id="pagibig" name="pagibig" value="{{ pagibig|default:'' }}" >
+                                <input type="text" id="pagibig" name="pagibig" value="{{ pagibig|default:'' }}"  readonly>
+                            </div>
+                            <div class="computation">
+                                <label for="tax">Tax:</label>
+                                <input type="text" id="tax" name="tax" value="{{ tax|default:'' }}"  readonly>
                             </div>
                             <div class="computation">
                                 <label for="total-deduction">Total Deductions:</label>
-                                <input type="text" id="total-deduction" name="total-deduction" value="{{ total_deduction|default:'' }}" >
+                                <input type="text" id="total-deduction" name="total-deduction" value="{{ total_deduction|default:'' }}" readonly >
                             </div>
                             <div class="computation">
                                 <label for="net-pay">Net Pay:</label>
-                                <input type="text" id="net-pay" name="net-pay" value="{{ net_pay|default:'' }}">
+                                <input type="text" id="net-pay" name="net-pay" value="{{ net_pay|default:'' }}" readonly>
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <button id="calculateBtn" type="submit" onclick="deductionValues()">Calculate</button>
                 </form>
                 

@@ -1,14 +1,22 @@
 // EMPLOYEE SALARY CALCULATIONS
 //SALARY PER MONTH
 
-// DECLARE ABSENT SERVES AS MINUS TO THE DAYS WORK
-
-
-function deductionValues() {
+function deductionValues(){
     // ... (the rest of your JavaScript code)
     // PROVIDE THE ID OF INPUTTED DATA SALARY FROM ADMIN INPUT
-    var getBasicValue = document.getElementById('salary');
-    var getBasic = parseFloat(getBasicValue.value);
+    
+    var getBasic;
+
+    var selectedValue = document.getElementById("employmentType").value;
+
+    if (selectedValue === 'regular'){
+        getBasic = 30000;
+    }else if (selectedValue === 'contractual'){
+        getBasic = 25000;
+    }else{
+        getBasic = 20000;
+    }
+
 
     // Your existing calculations
     let SSS = getBasic * 0.045;
@@ -23,6 +31,7 @@ function deductionValues() {
     document.getElementById('sss').value = SSS.toFixed(2);
     document.getElementById('philhealth').value = philhealth.toFixed(2);
     document.getElementById('pagibig').value = pagibig.toFixed(2);
+    document.getElementById('tax').value = 
     document.getElementById('total-deduction').value = totalDeduction.toFixed(2);
     document.getElementById('net-pay').value = netPay.toFixed(2);
 }

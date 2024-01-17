@@ -13,54 +13,80 @@
     align-items: center;
     text-align: left;
     margin: 20px;
+    height: auto;
 }
 
 .salary-config h1 {
     margin-bottom: 20px;
 }
 
-.user-info {
-    margin-bottom: 20px;
-}
-
-.user-info label {
-    margin-right: 10px;
-}
-
-.user-info input {
-    margin-right: 10px;
-    width: 300px;
-}
-
-.computation-value {
+.admin-content{
+    height: scroll;
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
-.computation {
-    margin-top: 20px;
+.user-info{
+    width: 700px;
+    border: 5px;
+    border-color: black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 10px;
+}
+.user-employee{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
-.computation label {
-    margin-right: 10px;
+.user-employee select{
+    width: 400px;
+    height: 35px;
 }
 
-.computation input {
-    width: 300px; /* Adjust width as needed */
-    height: 30px;
+.user-employee input{
+    width: 400px;
+    height: 35px;
+    padding: 5px;
 }
 
-#calculateBtn {
-    align-self: center;
+.computation-value{
     margin-top: 20px;
-    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.computation{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.computation input{
+    width: 400px;
+    height: 35px;
+    padding: 5px;
+}
+
+.salary-config button{
+    margin-top: 20px;
+    height: 40px;
+    width: 700px;
+    align-self: center;
     background-color: green;
     color: white;
-    height: 40px;
-    border-radius: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
+
+
 
