@@ -27,6 +27,7 @@ class Employee(AbstractUser):
 
 class SalaryInfo(models.Model):
     username = models.CharField(max_length=255)
+    employmentType = models.CharField(max_length=255)
     basic_salary = models.DecimalField(max_digits=20, decimal_places=2)
     sss = models.DecimalField(max_digits=20, decimal_places=2)
     philhealth = models.DecimalField(max_digits=20, decimal_places=2)
