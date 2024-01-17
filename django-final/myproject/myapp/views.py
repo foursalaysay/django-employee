@@ -130,6 +130,8 @@ def salary_config(request):
         net_pay = basic_salary - total_deduction
 
         # Save data to the database
+        
+
         salary_info = SalaryInfo.objects.create(
             basic_salary=basic_salary,
             sss=sss,
@@ -138,9 +140,11 @@ def salary_config(request):
             total_deduction=total_deduction,
             tax=1000,
             netpay=net_pay,
-            employee=username,  # Save the username to the table
+            username=username,
             date_saved=timezone.now()
         )
+        
+        salary_info.save()
 
         messages.success(request, 'Salary configuration saved successfully!')
         return render(request, 'admin-view/salary-config/salary-config.html', {
