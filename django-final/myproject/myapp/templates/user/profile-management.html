@@ -10,14 +10,16 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Informatioin</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile-management.css' %}">
+    
 </head>
 <body>
+    
     <nav>
         <div class="navbar-image">
             <img src="" alt="">
@@ -80,21 +82,35 @@
             </div>
         </aside>
         <section class="dashboard-content">
-            <form action="{% url 'update_info' %}" method="post">
-                {% csrf_token %}
-                <div class="update-container">
-                    <h2 class="title">Update Profile Information</h2>
-                    <label for="email">Change Email:</label>
-                    <input type="text" name="email"  value="{{ get_info.email }}" required>
-                    <label for="contact">Update Contact Number:</label>
-                    <input type="text" name="contact" value="{{ get_info.contact }}" required>
-                    <label for="address">Change Address:</label>
-                    <input type="text" name="address"   value="{{ get_info.address }}" required>
-                    <button type="submit">Update Information</button>
-                </div>
-            </form>
+            <div class="update-wrapper">
+                <form action="{% url 'update_info' %}" method="post">
+                    {% csrf_token %}
+                    <div class="update-container">
+                        <h2 class="title">Update Profile Information</h2>
+                        <label for="email">Change Email:</label>
+                        <input type="text" name="email"  value="{{ get_info.email }}" required>
+                        <label for="contact">Update Contact Number:</label>
+                        <input type="text" name="contact" value="{{ get_info.contact }}" required>
+                        <label for="address">Change Address:</label>
+                        <input type="text" name="address"   value="{{ get_info.address }}" required>
+                        <hr>
+                        <button type="button" onClick="showPasswordContainer()" id="show-pass-container">Change Password</button>
+                        <div class="change-pass">
+                            <label for="address">Enter New Password:</label>
+                            <input type="password" name="new-password"  id="new-password" value="">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="showPassword" class="checkbox">
+                                <label for="showPassword">Show Password</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="submit">Update Information</button>
+                    </div>
+                </form>
+            </div>
             
         </section>
     </div>
+    <script src="{% static 'js/change-pass.js' %}"></script>
 </body>
 </html>

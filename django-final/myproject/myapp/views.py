@@ -95,7 +95,7 @@ def register(request):
                 login(request, authenticated_user)
 
             messages.success(request, 'Registration successful. You are now logged in.')
-            return redirect('emp_view')  # Redirect to the home page after successful registration and login
+            return redirect('user_login')  # Redirect to the home page after successful registration and login
 
         except IntegrityError:
             # Handle the unique constraint violation (email or username already exists)
