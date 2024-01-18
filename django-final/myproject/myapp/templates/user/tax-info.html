@@ -13,7 +13,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/tax-info.css' %}">
 </head>
 <body>
@@ -62,25 +61,29 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            <h1>Tax Information</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tax</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for data in salary_data %}
+            <div class="tax">
+                <h1>Tax Information</h1>
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ data.tax }}</td>
+                                <th>Tax</th>
+                                <th>Pay Date</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            
-            {% if error_message %}
-                <p>{{ error_message }}</p>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for data in salary_data %}
+                                <tr>
+                                    <td>{{ data.tax }}</td>
+                                    <td>{{ data.date_saved }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                
+                {% if error_message %}
+                    <p>{{ error_message }}</p>
+                {% endif %}
+            </div>
         </section>
     </div>
 </body>
