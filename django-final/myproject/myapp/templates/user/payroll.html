@@ -9,11 +9,10 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Salary Calculations</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/payroll.css' %}">
 </head>
 <body>
@@ -62,36 +61,37 @@
         </aside>
         <section class="dashboard-content">
             <!-- Your section content goes here -->
-            <h1>Employee Details</h1>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Basic Salary</th>
-                        <th>SSS</th>
-                        <th>Philhealth</th>
-                        <th>Pagibig</th>
-                        <th>Tax</th>
-                        <th>Total Deduction</th>
-                        <th>Net Pay</th>
-                        <th>Date Saved</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for salary_info in salary_info_list %}
+            <div class="calculation">
+                <h1>Employee Details</h1>
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ salary_info.basic_salary }}</td>
-                            <td>{{ salary_info.sss }}</td>
-                            <td>{{ salary_info.philhealth }}</td>
-                            <td>{{ salary_info.pagibig }}</td>
-                            <td>{{ salary_info.tax }}</td>
-                            <td>{{ salary_info.total_deduction }}</td>
-                            <td>{{ salary_info.netpay }}</td>
-                            <td>{{ salary_info.date_saved }}</td>
+                            <th>Basic Salary</th>
+                            <th>SSS</th>
+                            <th>Philhealth</th>
+                            <th>Pagibig</th>
+                            <th>Tax</th>
+                            <th>Total Deduction</th>
+                            <th>Net Pay</th>
+                            <th>Date Saved</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for salary_info in salary_info_list %}
+                            <tr>
+                                <td>{{ salary_info.basic_salary }}</td>
+                                <td>{{ salary_info.sss }}</td>
+                                <td>{{ salary_info.philhealth }}</td>
+                                <td>{{ salary_info.pagibig }}</td>
+                                <td>{{ salary_info.tax }}</td>
+                                <td>{{ salary_info.total_deduction }}</td>
+                                <td>{{ salary_info.netpay }}</td>
+                                <td>{{ salary_info.date_saved }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </section>
     </div>
 </body>

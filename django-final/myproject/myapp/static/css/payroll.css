@@ -1,3 +1,16 @@
+
+.dashboard-content{
+    height: calc(100vh - 80px);
+    width: calc(100vw - 250px);
+    border-left: solid 1px;
+    border-color: slategray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 table {
     width: 100%;
     border-collapse: collapse;
