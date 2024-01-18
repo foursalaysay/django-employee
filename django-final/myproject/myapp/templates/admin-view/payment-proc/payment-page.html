@@ -40,18 +40,23 @@
             <!-- FETCH ALL EMPLOYEES -->
                 <div class="card-container">
                     <!-- FETCH ALL EMPLOYEES  -->
-                    
-                    {% for employee in employees %}
-                        <div class="card-content">
-                            <h1>{{ employee.name }}</h1>
-                            <p>{{ employee.address }}</p>
-                            <p>{{ employee.contact }}</p>
-                            <a href="{% url 'payment_page' username=employee.username %}">Send Salary</a>
-                        </div>
-                    {% endfor %}
+                    <div class="dialog" id="dialog">
+                    <form action="{% url 'payment_proc' %}" method="post">
+                        <h2>Send Salary</h2>
+                        <p>Employee Username: <span id="employee-username"></span></p>
+                        <input type="hidden" name="employee-username" id="employee-username-input">
+                        <input type="text" name="employee-name" id="employee-name-input" readonly>
+                        <input type="text" name="employee-address" id="employee-address-input" readonly>
+                        <input type="text" name="current-date" id="current-date-input" readonly>
+                        <hr>
+                        <label for="salary-value">Salary:</label>
+                        <input type="text" id="salary-value" name="salary-value">
+                        <button type="submit">Send Salary Payment</button>
+                        <hr>
+                    </form>
+                    </div>
                 </div>
         </section>
     </div>
-    <script src="{% static 'js/payment_proc.js' %}"></script>
 </body>
 </html>

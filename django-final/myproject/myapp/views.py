@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
 
 from django.contrib.auth import authenticate, login as auth_login
@@ -170,10 +169,43 @@ def salary_config(request):
 
 def payment_proc(request):
     employees = Employee.objects.all()
+    
+    
+    
     return render(request, "admin-view/payment-proc/payment-proc.html", {
         # Return Data
         'employees' : employees
     })
+    
+
+def payment_page(request, username):
+    # Fetch a single employee based on the provided username
+    employee = get_object_or_404(Employee, username=username)
+
+    # Pass the fetched employee to the template
+    context = {'employee': employee}
+
+    if request.method == 'POST':
+        # Retrieve data from the form
+        salary_value = request.POST.get('salary-value')
+        
+        # Save payment data to the Payment model
+        payment = Payment.objects.create(
+            username=employee.username,
+            salary_value=salary_value,
+            pay_date=timezone.now(),
+            name=employee.name,
+            address=employee.address
+        )
+        payment.save()
+
+        # Additional logic, if needed
+        # ...
+
+        # Redirect to a success page or back to the payment page
+        return redirect('payment_proc')  # Replace 'success_page' with the actual URL name
+
+    return render(request, "admin-view/payment-proc/payment-page.html", context)
     
 def reporting(request):
     employees = Employee.objects.all()
@@ -215,27 +247,27 @@ def user_stub(request):
     
 
 
-def doc_repo(request):
-    if request.method == 'POST' and 'file' in request.FILES:
-        uploaded_file = request.FILES['file']
+# def doc_repo(request):
+#     if request.method == 'POST' and 'file' in request.FILES:
+#         uploaded_file = request.FILES['file']
 
-        # Get the username from the session
-        username = request.session.get('username')
+#         # Get the username from the session
+#         username = request.session.get('username')
 
-        # Create and save a new Document instance in the database
-        user = User.objects.get(username=username)  # Assuming you are using the User model
-        document = Document(user=user, file=uploaded_file)
-        document.save()
+#         # Create and save a new Document instance in the database
+#         user = User.objects.get(username=username)  # Assuming you are using the User model
+#         document = Document(user=user, file=uploaded_file)
+#         document.save()
 
-        # Retrieve all documents for the current user
-        get_doc = Document.objects.filter(user=user)
-        context = {
-            'get_doc': get_doc
-        }
+#         # Retrieve all documents for the current user
+#         get_doc = Document.objects.filter(user=user)
+#         context = {
+#             'get_doc': get_doc
+#         }
 
-        return render(request, 'user/doc-repo.html', context)
+#         return render(request, 'user/doc-repo.html', context)
 
-    return render(request, 'user/doc-repo.html')
+#     return render(request, 'user/doc-repo.html')
 # -------------------------- PROFILE MANAGEMENT VIEWS ------------------------------
 
 def update_info(request):
@@ -442,26 +474,26 @@ def return_404(request):
     return render(request, '404.html')
 
 # DOCUMENT REPOSITORY
-from .models import Document
-from .forms import DocumentForm
+# from .models import Document
+# from .forms import DocumentForm
 
-def upload_document(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('upload_document')
-    else:
-        form = DocumentForm()
+# def upload_document(request):
+#     if request.method == 'POST':
+#         form = DocumentForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('upload_document')
+#     else:
+#         form = DocumentForm()
 
-    documents = Document.objects.all()
-    return render(request, 'upload_document.html', {'form': form, 'documents': documents})
+#     documents = Document.objects.all()
+#     return render(request, 'upload_document.html', {'form': form, 'documents': documents})
 
-def download_document(request, document_id):
-    document = Document.objects.get(id=document_id)
-    response = HttpResponse(document.file, content_type='application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename="{document.file.name}"'
-    return response
+# def download_document(request, document_id):
+#     document = Document.objects.get(id=document_id)
+#     response = HttpResponse(document.file, content_type='application/octet-stream')
+#     response['Content-Disposition'] = f'attachment; filename="{document.file.name}"'
+#     return response
 
 # DELETE EMPLOYEE
 from django.shortcuts import render, redirect, get_object_or_404

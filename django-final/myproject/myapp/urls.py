@@ -10,7 +10,7 @@ urlpatterns = [
     
     path("emp_view", views.emp_view, name="emp_view"),
     path("user-stub", views.user_stub, name="user_stub"),
-    path("doc-repo", views.doc_repo, name="doc_repo"),
+    # path("doc-repo", views.doc_repo, name="doc_repo"),
 
     path("update_info", views.update_info, name="update_info"),
     path("change-pass", views.change_pass, name="change_pass"),
@@ -36,8 +36,7 @@ urlpatterns = [
     path('search-employee/', views.search_employee, name='search_employee'),
     path('404', views.return_404, name='return_404' ),
     
-    path('upload/', views.upload_document, name='upload_document'),
-    path('download/<int:document_id>/', views.download_document, name='download_document'),
+    path('payment-page/<str:username>', views.payment_page, name='payment_page'),
     path('delete-employee/<str:username>/', views.delete_employee, name='delete_employee'),
     
 ]

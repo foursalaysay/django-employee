@@ -37,12 +37,12 @@ class SalaryInfo(models.Model):
     netpay = models.DecimalField(max_digits=20, decimal_places=2)
     date_saved = models.DateTimeField(auto_now_add=True)
 
-class Document(models.Model):
-    username = models.CharField(max_length=255)
-    file = models.FileField(upload_to='media/')  # 'upload_to' defines the upload directory
 
-    def __str__(self):
-        return self.username
-    
+class Payment(models.Model):
+    username = models.CharField(max_length=255)
+    salary_value = models.DecimalField(max_digits=20, decimal_places=2)
+    pay_date = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
     
     
