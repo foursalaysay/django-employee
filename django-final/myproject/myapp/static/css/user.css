@@ -1,5 +1,10 @@
-h1 {
+.dashboard-content h1{
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 20px;
+    font-size: 80px;
 }
 
 table {

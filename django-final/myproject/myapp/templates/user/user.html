@@ -71,36 +71,35 @@
     </aside>
     <div class="dashboard-content">
         <!-- ... -->
-        <h2>Salary Table</h2>
-
-<table border="1">
-    <thead>
-        <tr>
-            <th>Basic Salary</th>
-            <th>SSS</th>
-            <th>Philhealth</th>
-            <th>Pagibig</th>
-            <th>Tax</th>
-            <th>Total Deduction</th>
-            <th>Netpay</th>
-            <th>Date Saved</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for salary in salaries %}
-            <tr>
-                <td>{{ salary.basic_salary }}</td>
-                <td>{{ salary.sss }}</td>
-                <td>{{ salary.philhealth }}</td>
-                <td>{{ salary.pagibig }}</td>
-                <td>{{ salary.tax }}</td>
-                <td>{{ salary.total_deduction }}</td>
-                <td>{{ salary.netpay }}</td>
-                <td>{{ salary.date_saved }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <h1>Salary Table</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Basic Salary</th>
+                    <th>SSS</th>
+                    <th>Philhealth</th>
+                    <th>Pagibig</th>
+                    <th>Tax</th>
+                    <th>Total Deduction</th>
+                    <th>Net Pay</th>
+                    <th>Date Saved</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for salary in salaries %}
+                    <tr>
+                        <td>{{ salary.basic_salary }}</td>
+                        <td>{{ salary.sss }}</td>
+                        <td>{{ salary.philhealth }}</td>
+                        <td>{{ salary.pagibig }}</td>
+                        <td>{{ salary.tax }}</td>
+                        <td>{{ salary.total_deduction }}</td>
+                        <td>{{ salary.netpay }}</td>
+                        <td>{{ salary.date_saved }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         
     </div>
 </div>

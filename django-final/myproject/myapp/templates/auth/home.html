@@ -1,0 +1,28 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <div class="home-page">
+        <div class="logo">
+            <img src="../../static/images/ems.png" alt="">
+        </div>
+        <div class="navigator">
+            <h2>Employee Salary System</h2>
+            <div>
+                <button><a href="{% url 'user_login' %}" id="signIn">Sign In</a></button>
+                <button><a href="{% url 'register' %}" id="signIn">Sign In</a></button> |
+            </div>
+        </div>
+        
+    </div>
+    
+</body>
+</html>

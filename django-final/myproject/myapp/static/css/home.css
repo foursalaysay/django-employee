@@ -1,0 +1,15 @@
+.home-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.logo{
+    width: 50%;
+    height: 100vh;
+}
+
+.logo img{
+     height: 60%;
+     width: 60%;
+}

@@ -26,6 +26,10 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import render, redirect
 from django.contrib.auth import update_session_auth_hash
 
+
+def home(request):
+    return render(request, 'auth/home.html')
+
 def user_login(request):
     if request.method == 'POST':
         # Get the username and password from the form
