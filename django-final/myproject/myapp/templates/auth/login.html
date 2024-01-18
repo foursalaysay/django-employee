@@ -21,18 +21,18 @@
                 <form method="post" action="{% url 'user_login' %}" autocomplete="on">
                     {% csrf_token %}
                     <div class="input-container">
-                        <label for="username">Username:</label>
+                        <label class="label" for="username">Username:</label>
                         <input type="text" id="username" name="username" required>
                     </div>
                     <div class="input-container">
-                        <label for="password">Password:</label>
+                        <label class="label" for="password">Password:</label>
                         <input type="password" id="password" name="password" required>
                     </div>
                     <button type="submit">Login</button>
-                    {% if error_message %}
-                        <p class="error-message">{{ error_message }}</p>
-                    {% endif %}
                 </form>
+                {% if error_message %}
+                        <p class="error-message">{{ error_message }}</p>
+                {% endif %}
                 
                 <!-- SIGN UP ROUTE HERE -->
                 <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>

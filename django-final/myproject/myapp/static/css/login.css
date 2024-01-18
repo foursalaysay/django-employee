@@ -5,43 +5,96 @@
     padding: 0;
 }
 
-
 .login-page{
-    display: flex;
-    flex-direction: row;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-image{
-    height: 500px;
-    width: 600px;
-    margin: 0 20px;
+    width: 50%;
+    height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-.login-image img{
-    height: 400px;
-    width: 500px;
-    align-self: center;
+    justify-content: center;
 }
 
 .login-container{
-    width: calc(100vw - 700px);
+    width: 50%;
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    
 }
 
-.login-form{
-    width: 500px;
-    height: 450px;
-    border: none;
-    box-shadow: 20px;
+.login-image img{
+    width: 80%;
+    height: 80%;
+}
+
+.login-container .login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 20px;
+    gap: 20px;
+    border: 2px;
     border-radius: 10px;
+    box-shadow: 20px 10px;
+    box-shadow: 1px -1px 14px 2px rgba(0,0,0,0.22);
+    -webkit-box-shadow: 1px -1px 14px 2px rgba(0,0,0,0.22);
+    -moz-box-shadow: 1px -1px 14px 2px rgba(0,0,0,0.22);
+    width: 70%;
+    height: 70%;
+}
+
+.login-form h1, p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.login-form h1{
+    font-size: 50px;
+}
+.login-form p{
+    font-size: 15px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.input-container input{
+    width: 450px;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.input-container .label{
+    font-size: 15px;
 }
 
 
+.login-form button{
+    width: 450px;
+    height: 40px;
+    background-color: rgb(0, 214, 0);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-form p{
+    text-align: center;
+}
