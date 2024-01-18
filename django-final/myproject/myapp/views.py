@@ -219,24 +219,23 @@ def doc_repo(request):
     if request.method == 'POST' and 'file' in request.FILES:
         uploaded_file = request.FILES['file']
 
-        # Get the username from the session (assuming 'username' is stored in the session)
+        # Get the username from the session
         username = request.session.get('username')
-        request.session['username'] = username
 
         # Create and save a new Document instance in the database
-        document = Document(file=uploaded_file)
+        user = User.objects.get(username=username)  # Assuming you are using the User model
+        document = Document(user=user, file=uploaded_file)
         document.save()
-        
-        get_doc = Document.objects.all()
+
+        # Retrieve all documents for the current user
+        get_doc = Document.objects.filter(user=user)
         context = {
-            'get_doc' : get_doc
+            'get_doc': get_doc
         }
 
-        HttpResponse(f'Successfully uploaded {uploaded_file.name}')
-        return redirect('doc_repo', context)
+        return render(request, 'user/doc-repo.html', context)
 
     return render(request, 'user/doc-repo.html')
-    
 # -------------------------- PROFILE MANAGEMENT VIEWS ------------------------------
 
 def update_info(request):

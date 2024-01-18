@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,14 +13,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+ 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/doc-repo.css' %}">
-   
+    <link rel="stylesheet" href="{% static 'css/repo.css' %}">
 </head>
 <body>
-   
     <nav>
         <div class="navbar-image">
             <img src="" alt="">
@@ -74,25 +74,140 @@
             </ul>
         </aside>
         <section class="dashboard-content">
-            <h2>Upload Document</h2>
-            <!-- doc-repo.html -->
-<form action="{% url 'doc_repo' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+            <!-- Your dashboard content goes here -->
+            <div class="repo">
+                <h2>Upload Document</h2>
+                <!-- doc-repo.html -->
+                <form action="{% url 'doc_repo' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Hidden file input -->
+                    <input type="file" name="file" id="fileInput" style="display: none;" onchange="displayFileName(this)">
+                    <!-- Visible button to trigger file input -->
+                    <button type="button" onclick="document.getElementById('fileInput').click();">
+                        Choose File
+                    </button>
+                    <!-- Display selected file name (optional) -->
+                    <span id="selectedFileName"></span>
+                    <!-- Submit Button -->
+                    <button type="submit">Upload</button>
+                </form>
+                
+                <script>
+                    function displayFileName(input) {
+                        var fileName = input.files[0].name;
+                        document.getElementById('selectedFileName').innerText = fileName;
+                    }
+                </script>
+                
+                {% if document %}
+                    <!-- Display download button if a document is available -->
+                    <a href="{% url 'download_document' document.id %}" download>
+                        <button>Download Document</button>
+                    </a>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</body>
+</html>
 
-    <!-- Hidden file input -->
-    <input type="file" name="file" id="fileInput" style="display: none;" />
 
-    <!-- Visible button to trigger file input -->
-    <button type="button" onclick="document.getElementById('fileInput').click();">
-        Choose File
-    </button>
 
-    <!-- Display selected file name (optional) -->
-    <span id="selectedFileName"></span>
 
-    <!-- Submit Button -->
-    <button type="submit">Upload</button>
-</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/doc-repo.css' %}">
+   
+</head>
+<body>
+   
+    <nav>
+        <div class="navbar-image">
+            <img src="" alt="">
+        </div>
+        <ul class="navbar-ul">
+            <li>
+                <a href="{% url 'emp_view' %}">Dashboard</a>
+            </li>
+            <li>
+                <a href="{% url 'update_info' %}">Profile Management</a>
+            </li>
+            <li>
+                <a href="{% url 'view_calculation' %}">Payroll</a>
+            </li>
+            {% comment %} <li>
+                <a href="{% url 'user_report' %}">Report</a>
+            </li> {% endcomment %}
+            {% comment %} <li>
+                <a href="{% url 'user_login' %}">Logout</a>
+            </li>
+        </ul>
+    </nav> {% endcomment %} 
+
+    <!-- DIMENSION OF NAVBAR ABOVE -->
+
+    <!-- width: 100vw;
+    height: 80px; -->
+
+
+    <!-- DASHBOARD CONTENT -->
+    {% comment %} <div class="page-content">
+        <aside class="aside-content">
+            <ul class="aside-nav">
+                <li>
+                    <a class="aside-nav-items" href="{% url 'emp_view' %}">
+                        <img class="sidenav-logo" src="{% static 'images/salary.png' %}" alt="logo">
+                        Salary Information
+                    </a>
+                </li>
+                <li>
+                    <a class="aside-nav-items" href="{% url 'user_stub' %}">
+                        <img class="sidenav-logo" src="{% static 'images/bank-check.png' %}" alt="logo">
+                        Pay Stubs
+                    </a>
+                </li>
+                <li>
+                    <a class="aside-nav-items" href="{% url 'doc_repo' %}">
+                        <img class="sidenav-logo" src="{% static 'images/documentation.png' %}" alt="logo">
+                        Document Repository
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section class="dashboard-content">
+            
 
             
         </section>
@@ -103,6 +218,4 @@
             var selectedFileName = this.value.split('\\').pop();
             document.getElementById('selectedFileName').innerText = selectedFileName;
         });
-    </script>
-</body>
-</html>
+    </script> {% endcomment %}

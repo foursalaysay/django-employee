@@ -38,11 +38,11 @@ class SalaryInfo(models.Model):
     date_saved = models.DateTimeField(auto_now_add=True)
 
 class Document(models.Model):
-    name = models.CharField(max_length=255)
-    file = models.FileField(upload_to='documents/')  # 'upload_to' defines the upload directory
+    username = models.CharField(max_length=255)
+    file = models.FileField(upload_to='media/')  # 'upload_to' defines the upload directory
 
     def __str__(self):
-        return self.name
+        return self.username
     
     
     
