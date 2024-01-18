@@ -32,7 +32,7 @@ class SalaryInfo(models.Model):
     sss = models.DecimalField(max_digits=20, decimal_places=2)
     philhealth = models.DecimalField(max_digits=20, decimal_places=2)
     pagibig = models.DecimalField(max_digits=20, decimal_places=2)
-    tax = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    tax = models.DecimalField(max_digits=20, decimal_places=2)
     total_deduction = models.DecimalField(max_digits=20, decimal_places=2)
     netpay = models.DecimalField(max_digits=20, decimal_places=2)
     date_saved = models.DateTimeField(auto_now_add=True)

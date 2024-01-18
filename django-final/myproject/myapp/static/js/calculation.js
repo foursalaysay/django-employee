@@ -17,6 +17,13 @@ function deductionValues(){
         getBasic = 20000;
     }
 
+    
+
+    // Your existing calculations
+    let SSS = getBasic * 0.045;
+    let philhealth = getBasic * 0.05;
+    let pagibig = getBasic * 0.02;
+
     let tax;
 
     if (getBasic <= 20833){
@@ -28,22 +35,20 @@ function deductionValues(){
     }
 
 
-    // Your existing calculations
-    let SSS = getBasic * 0.045;
-    let philhealth = getBasic * 0.05;
-    let pagibig = getBasic * 0.02;
-
     let totalDeduction = SSS + philhealth + pagibig + tax;
     let netPay = getBasic - totalDeduction;
 
     // Set the calculated values in the corresponding input fields
-    document.getElementById('basic-salary').value = calculateBasicSalary(getBasic).toFixed(2);
+    document.getElementById('basic-salary').value = getBasic.toFixed(2);
     document.getElementById('sss').value = SSS.toFixed(2);
     document.getElementById('philhealth').value = philhealth.toFixed(2);
     document.getElementById('pagibig').value = pagibig.toFixed(2);
     document.getElementById('tax').value = tax.toFixed(2);
     document.getElementById('total-deduction').value = totalDeduction.toFixed(2);
     document.getElementById('net-pay').value = netPay.toFixed(2);
+
+
+    alert("Form submitted successfully!");
 }
 
 // Function to calculate basic salary

@@ -48,7 +48,6 @@ def user_login(request):
                 if user.check_password(password):
                     # Log in the first user that matches the password
                     auth_login(request, user)
-                    request.session['logged_in_user'] = username
                     request.session['username'] = username
                     return redirect('emp_view')
 
@@ -121,19 +120,25 @@ from .models import Employee  # Make sure to import your Employee model
 def salary_config(request):
     if request.method == 'POST':
         # Retrieve data from the form
-        salary = float(request.POST.get('salary'))
-        username = request.POST.get('username')
-
-        # Get the employee associated with the username
         
+        username = request.POST.get('username')
+        basic_salary_str = request.POST.get('basic-salary')
+        sss_str = request.POST.get('sss')
+        philhealth_str = request.POST.get('philhealth')
+        pagibig_str = request.POST.get('pagibig')
+        tax_str = request.POST.get('tax')
 
-        # Perform direct calculations without using functions
-        basic_salary = salary * 0.8  # Replace with your actual calculation logic
-        sss = basic_salary * 0.045  # Replace with your actual calculation logic
-        philhealth = basic_salary * 0.05  # Replace with your actual calculation logic
-        pagibig = basic_salary * 0.02  # Replace with your actual calculation logic
+        # Convert string values to float or int
+        basic_salary = float(basic_salary_str) if basic_salary_str else 0.0
+        sss = float(sss_str) if sss_str else 0.0
+        philhealth = float(philhealth_str) if philhealth_str else 0.0
+        pagibig = float(pagibig_str) if pagibig_str else 0.0
+        tax = float(tax_str) if tax_str else 0.0
+
+        # Calculate total deduction and net pay
         total_deduction = sss + philhealth + pagibig
         net_pay = basic_salary - total_deduction
+                
 
         # Save data to the database
         salary_info = SalaryInfo.objects.create(
@@ -143,7 +148,7 @@ def salary_config(request):
             philhealth=philhealth,
             pagibig=pagibig,
             total_deduction=total_deduction,
-            tax=1000,
+            tax=tax,
             netpay=net_pay,
             date_saved=timezone.now()
         )
@@ -154,6 +159,7 @@ def salary_config(request):
             'sss': sss,
             'philhealth': philhealth,
             'pagibig': pagibig,
+            'tax': tax,
             'total_deduction': total_deduction,
             'net_pay': net_pay,
             'salary_info' : salary_info
