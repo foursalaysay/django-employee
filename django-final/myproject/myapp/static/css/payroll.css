@@ -4,9 +4,24 @@
     width: calc(100vw - 250px);
     border-left: solid 1px;
     border-color: slategray;
+    
+}
+
+.calculation{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+
+    margin-top: 20px;
+    padding: 20px;
+
+}
+
+.calculation h1{
+    font-size: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
