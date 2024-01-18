@@ -203,7 +203,7 @@ def payment_page(request, username):
         # ...
 
         # Redirect to a success page or back to the payment page
-        return redirect('payment_proc')  # Replace 'success_page' with the actual URL name
+        return redirect('payment_page', username=username)  # Replace 'payment_page' with the actual URL name
 
     return render(request, "admin-view/payment-proc/payment-page.html", context)
     

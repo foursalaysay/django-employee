@@ -13,7 +13,7 @@
 <body>
     <div class="admin-header">
         <h2>ADMIN PAGE</h2>
-        <a href="{% url 'user_login' %}">Logout</a>
+        <a href="{% url 'home' %}">Logout</a>
     </div>
     <div class="page-content">
         <aside class="aside-content">
@@ -37,26 +37,28 @@
             </ul>
         </aside>
         <section class="admin-content">
-            <!-- FETCH ALL EMPLOYEES -->
-                <div class="card-container">
-                    <!-- FETCH ALL EMPLOYEES  -->
-                    <div class="dialog" id="dialog">
-                    <form action="{% url 'payment_proc' %}" method="post">
-                        <h2>Send Salary</h2>
-                        <p>Employee Username: <span id="employee-username"></span></p>
-                        <input type="hidden" name="employee-username" id="employee-username-input">
-                        <input type="text" name="employee-name" id="employee-name-input" readonly>
-                        <input type="text" name="employee-address" id="employee-address-input" readonly>
-                        <input type="text" name="current-date" id="current-date-input" readonly>
-                        <hr>
-                        <label for="salary-value">Salary:</label>
-                        <input type="text" id="salary-value" name="salary-value">
-                        <button type="submit">Send Salary Payment</button>
-                        <hr>
-                    </form>
-                    </div>
-                </div>
+            <div class="submit-salary">
+                <form action="{% url 'payment_proc' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Send Salary</h2>
+                    <p>Employee Username: <span id="employee-username"></span></p>
+                    <input type="hidden" name="employee-username" id="employee-username-input">
+                    <label for="employee-name">Name:</label>
+                    <input type="text" name="employee-name" id="employee-name-input" readonly>
+                    <label for="employee-address">Address:</label>
+                    <input type="text" name="employee-address" id="employee-address-input" readonly>
+                    <label for="current-date">Date:</label>
+                    <input type="text" name="current-date" id="current-date-input" readonly>
+                    <hr>
+                    <label for="salary-value">Salary:</label>
+                    <input type="text" id="salary-value" name="salary-value">
+                    <button type="submit">Send Salary Payment</button>
+                    <hr>
+                </form>
+            </div>
+            
         </section>
     </div>
+    <script src="{% static 'js/payment_proc.js' %}"></script>
 </body>
 </html>
