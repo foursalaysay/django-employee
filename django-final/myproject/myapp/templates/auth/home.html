@@ -16,9 +16,10 @@
         </div>
         <div class="navigator">
             <h2>Employee Salary System</h2>
-            <div>
-                <button><a href="{% url 'user_login' %}" id="signIn">Sign In</a></button>
-                <button><a href="{% url 'register' %}" id="signIn">Sign In</a></button> |
+            <div class="navigator-button">
+                <a href="{% url 'user_login' %}" id="signIn"><button>Sign In</button></a>
+                <a href="{% url 'register' %}" id="signIn"><button>Register</button></a>
+                <p>By clicking continue, you agree to our <a href="{% url 'home' %}">Terms of Service</a> and <a href="{% url 'home' %}">Privacy Policy.</a></p>
             </div>
         </div>
         

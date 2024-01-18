@@ -37,39 +37,11 @@
 }
 
 .login-form{
-    width: 450px;
+    width: 500px;
     height: 450px;
-    border: solid gray 0.5px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    justify-content: flex-start;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    margin-top: 40px;
-    padding: 50px;
+    border: none;
+    box-shadow: 20px;
+    border-radius: 10px;
 }
-
-.login-form p{
-    margin-bottom: 30px;
-}
-
-.input-container{
-    height: 60px;
-    width: 300px;
-}
-
-.input-container input{
-    height: 40px;
-    width: 300px;
-}
-
-.login-form button{
-    height:40px;
-    width: 300px;
-    background-color: rgb(16, 253, 35);
-}
-
 
 
