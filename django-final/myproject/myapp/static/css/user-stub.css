@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-content{
+    width: calc(100vw - 250px);
+    height: scroll;
+    border-left: solid 1px;
+    border-color: slategray;
+}
+
+.stub-container{
+    margin-top: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 150px;
+    width: 800px;
+}
+
+.stub{
+    width: 700px;
+    height: 300px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+
+}

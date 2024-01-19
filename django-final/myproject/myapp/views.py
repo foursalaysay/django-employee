@@ -169,9 +169,6 @@ def salary_config(request):
 
 def payment_proc(request):
     employees = Employee.objects.all()
-    
-    
-    
     return render(request, "admin-view/payment-proc/payment-proc.html", {
         # Return Data
         'employees' : employees
@@ -189,21 +186,25 @@ def payment_page(request, username):
         # Retrieve data from the form
         salary_value = request.POST.get('salary-value')
         
+        
         # Save payment data to the Payment model
         payment = Payment.objects.create(
-            username=employee.username,
-            salary_value=salary_value,
-            pay_date=timezone.now(),
-            name=employee.name,
-            address=employee.address
+        username=employee.username,
+        salary_value=salary_value,
+        pay_date=timezone.now(),
+        name=employee.name,
+        address=employee.address
         )
+        payment.full_clean()
         payment.save()
 
+       
         # Additional logic, if needed
         # ...
 
         # Redirect to a success page or back to the payment page
-        return redirect('payment_page', username=username)  # Replace 'payment_page' with the actual URL name
+        messages.success(request, 'Salary configuration saved successfully!')
+        return redirect('payment_page', username= username)  # Replace 'payment_page' with the actual URL name
 
     return render(request, "admin-view/payment-proc/payment-page.html", context)
     
@@ -241,8 +242,11 @@ def emp_view(request):
 def user_stub(request):
     username = request.session.get('username')
     request.session['username'] = username
+    
+    employees = Payment.objects.filter(username=username)
+    
     return render(request, "user/user-stub.html", {
-        
+        'employees' : employees
     })
     
 

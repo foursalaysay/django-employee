@@ -13,7 +13,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user-stub.css' %}">
 </head>
 <body>
     <nav>
@@ -71,6 +71,19 @@
         </aside>
         <section class="dashboard-content">
             <!-- Your dashboard content goes here -->
+            <div class="stub-container">
+                {% for employee in employees %}
+                    <div class="stub">
+                        <h2>Pay Stub for {{ employee.name }} </h2>
+                        <p>Address: {{ employee.address }}</p>
+                        <hr>
+                        <div class="salary-stub">
+                            <h5>Salary: {{ employee.salary_value }}</h5>
+                            <h5>Date Received: {{ employee.pay_date }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </section>
     </div>
 </body>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="practice.css">
+</head>
+<body>
+    <div class="submit-salary">
+        <form action="{% url 'payment_proc' %}" method="post">
+            <h2>Send Salary</h2>
+            <p>Employee Username: <span id="employee-username">{{ employee.username }}</span></p>
+            <hr>
+            <input type="hidden" name="employee-username" id="employee-username-input">
+            <label for="employee-name">Name:</label>
+            <input type="text" name="employee-name" id="employee-name-input" readonly>
+            <label for="employee-address">Address:</label>
+            <input type="text" name="employee-address" id="employee-address-input" readonly>
+            <label for="current-date">Date:</label>
+            <input type="text" name="current-date" id="current-date-input" readonly>
+            <hr>
+            <label for="salary-value">Salary:</label>
+            <input type="text" id="salary-value" name="salary-value">
+            <button type="submit">Send Salary Payment</button>
+        </form>
+    </div>
+</body>
+</html>

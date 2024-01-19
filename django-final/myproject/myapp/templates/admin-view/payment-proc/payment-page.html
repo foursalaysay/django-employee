@@ -38,22 +38,21 @@
         </aside>
         <section class="admin-content">
             <div class="submit-salary">
-                <form action="{% url 'payment_proc' %}" method="post">
+                <form action="{% url 'payment_page' username=employee.username %}" method="post">
                     {% csrf_token %}
                     <h2>Send Salary</h2>
-                    <p>Employee Username: <span id="employee-username"></span></p>
-                    <input type="hidden" name="employee-username" id="employee-username-input">
+                    <p>Employee Salary Details: <span id="employee-username"></span></p>
+                    <hr>
+                    <label for="employee-username">Username:</label>
+                    <input type="text" name="employee-username" id="employee-username-input" value="{{ employee.username }}" readonly>
                     <label for="employee-name">Name:</label>
-                    <input type="text" name="employee-name" id="employee-name-input" readonly>
+                    <input type="text" name="employee-name" id="employee-name-input" value="{{ employee.name }}" readonly>
                     <label for="employee-address">Address:</label>
-                    <input type="text" name="employee-address" id="employee-address-input" readonly>
-                    <label for="current-date">Date:</label>
-                    <input type="text" name="current-date" id="current-date-input" readonly>
+                    <input type="text" name="employee-address" id="employee-address-input" value="{{ employee.address }}" readonly>
                     <hr>
                     <label for="salary-value">Salary:</label>
                     <input type="text" id="salary-value" name="salary-value">
                     <button type="submit">Send Salary Payment</button>
-                    <hr>
                 </form>
             </div>
             
